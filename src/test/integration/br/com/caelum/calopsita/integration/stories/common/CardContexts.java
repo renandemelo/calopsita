@@ -8,7 +8,7 @@ import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.model.Card.Status;
 import br.com.caelum.calopsita.persistence.dao.UserDao;
-import br.com.caelum.calopsita.plugins.lifeCicle.LifeCicledCard;
+import br.com.caelum.calopsita.plugins.lifeCycle.LifeCycledCard;
 import br.com.caelum.calopsita.plugins.planning.PlanningCard;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 import br.com.caelum.calopsita.plugins.roi.ValuableCard;
@@ -108,9 +108,9 @@ public class CardContexts<T extends ProjectContexts<T>> {
  	}
 
 	public CardContexts<?> thatHasALifeCicle(LocalDate when) {
-		LifeCicledCard lifeCicledCard = new LifeCicledCard();
+		LifeCycledCard lifeCicledCard = new LifeCycledCard();
 		lifeCicledCard.setCard(card);
-		lifeCicledCard.setDate(when);
+		lifeCicledCard.setCreationDate(when);
 		session.save(lifeCicledCard);
 		session.flush();
 		return this;
