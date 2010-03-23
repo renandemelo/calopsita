@@ -21,4 +21,5 @@ public class GadgetsTest {
 
 		assertThat(gadgets, hasItem(Gadgets.PRIORITIZATION));
 	}
+	
 }

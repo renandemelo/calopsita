@@ -3,6 +3,7 @@ package br.com.caelum.calopsita.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.caelum.calopsita.plugins.lifeCycle.LifeCycledCard;
 import br.com.caelum.calopsita.plugins.planning.PlanningCard;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 import br.com.caelum.calopsita.plugins.roi.ValuableCard;
@@ -28,6 +29,16 @@ public enum Gadgets {
 		public Class<? extends Gadget> gadgetClass() {
 			return PlanningCard.class;
 		}
+	},LIFE_CYCLE {
+		@Override
+		public LifeCycledCard createGadgetFor(Card card) {
+			return LifeCycledCard.of(card);
+		}
+
+		@Override
+		public Class<? extends Gadget> gadgetClass() {
+			return LifeCycledCard.class;
+		}
 	}, VALUABLE {
 
 		@Override
@@ -39,7 +50,6 @@ public enum Gadgets {
 		public Class<? extends Gadget> gadgetClass() {
 			return ValuableCard.class;
 		}
-		
 	};
 
 	public abstract Gadget createGadgetFor(Card card);

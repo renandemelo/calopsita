@@ -1,12 +1,14 @@
 package br.com.caelum.calopsita.integration.stories.common;
 
 import org.hibernate.Session;
+import org.joda.time.LocalDate;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.model.Card.Status;
 import br.com.caelum.calopsita.persistence.dao.UserDao;
+import br.com.caelum.calopsita.plugins.lifeCycle.LifeCycledCard;
 import br.com.caelum.calopsita.plugins.planning.PlanningCard;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 import br.com.caelum.calopsita.plugins.roi.ValuableCard;
@@ -104,5 +106,14 @@ public class CardContexts<T extends ProjectContexts<T>> {
 		session.flush();
 		return this;
  	}
+
+	public CardContexts<?> thatHasALifeCicle(LocalDate when) {
+		LifeCycledCard lifeCicledCard = new LifeCycledCard();
+		lifeCicledCard.setCard(card);
+		lifeCicledCard.setCreationDate(when);
+		session.save(lifeCicledCard);
+		session.flush();
+		return this;
+	}
 	
 }
