@@ -12,7 +12,6 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.hibernate.Session;
 import org.joda.time.LocalDate;
-import org.junit.Assert;
 
 import br.com.caelum.seleniumdsl.Browser;
 import br.com.caelum.seleniumdsl.ContentTag;
@@ -274,5 +273,9 @@ public class ThenAsserts {
 
 	public void hasROI(int roiValue) {
 		assertThat(div(divName), containsText("" + roiValue));
+	}
+
+	public void hasCreationDate(LocalDate today) {
+		assertThat(div(divName), containsText("" + today));
 	}
 }
