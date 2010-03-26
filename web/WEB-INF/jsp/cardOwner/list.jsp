@@ -11,20 +11,8 @@
 </head>
 
 <body>
-	<div id="iteration">
-		<div class="help">
-			<p><fmt:message key="help.addingAndRemovingCards"/></p>
-		</div>
-		
-		<div id="iteration_cards" class="selectable cards column left">
-			<h2><fmt:message key="cards"/></h2>
-			<calopsita:cards cards="${iteration.cards}" listId="cards_list" classes="board"/>
-		</div>
-		
-		<div id="backlog" class="selectable column right">
-			<h2><fmt:message key="backlog"/></h2>
-			<calopsita:cards cards="${otherCards}" listId="backlog_list" classes="board"/>
-		</div>
+	<div id="cards">
+		<calopsita:cards cards="${iterationCards}" listId="cards" description="true"/>
 	</div>	  
 </body>
 </html>

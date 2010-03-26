@@ -27,7 +27,7 @@ public class CardOwnerPlugin implements PluginConfig {
 			Project project = parameters.get("project");
 			Iteration iteration = parameters.get("iteration");
 			menu.getOrCreate("iteration.current")
-				.add(new SubmenuItem("iteration.owner", "/projects/" + project.getId() + "/iterations/" + iteration.getId() + "/assignation/"));
+				.add(new SubmenuItem("iteration.owner", "/projects/" + project.getId() + "/iterations/" + iteration.getId() + "/cardOwner/"));
 		}
 	}
 
