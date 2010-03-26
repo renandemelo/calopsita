@@ -13,6 +13,7 @@ import org.junit.BeforeClass;
 
 import br.com.caelum.calopsita.integration.BrowserFactory;
 import br.com.caelum.calopsita.integration.HtmlUnitFactory;
+import br.com.caelum.calopsita.integration.SeleniumFactory;
 import br.com.caelum.seleniumdsl.Browser;
 
 public class DefaultStory {

@@ -14,13 +14,14 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
  */
 public class CardLifeCycleStory extends DefaultStory {
 
-	@Test @Ignore
+	@Test
 	public void creatingCardWithLifeCicleRecordsCreationDate() throws Exception {
 		given.thereIsAnUserNamed("Hugo").and()
 			 .thereIsAProjectNamed("Archimedes").ownedBy("Hugo")
 			 	.withACardNamed("Make trim work").thatHasALifeCicle(today()).and()
 			 .iAmLoggedInAs("Hugo");
-		when.iOpenCardsPage();
+		when.iOpenProjectPageOf("Archimedes")
+			.iOpenAllCardsPage();
 		then.theCard("Make trim work").hasCreationDate(today());
 	}
 }

@@ -4,9 +4,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadget;
@@ -15,10 +21,13 @@ import br.com.caelum.calopsita.model.Gadget;
 public class LifeCycledCard implements Gadget{
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator="custom")
+	@GenericGenerator(name="custom", strategy="foreign",
+			parameters=@Parameter(name="property", value="card"))
 	private Long id;
 
 	@OneToOne
+	@PrimaryKeyJoinColumn
 	private Card card;
 
 	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalDate")
@@ -61,7 +70,8 @@ public class LifeCycledCard implements Gadget{
 
 	@Override
 	public String getHtml() {
-		return null;
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+		return "<div>" + formatter.print(creationDate) + "</div>";
 	}
 
 	public static LifeCycledCard of(Card card) {

@@ -39,6 +39,7 @@ public enum Gadgets {
 		public Class<? extends Gadget> gadgetClass() {
 			return LifeCycledCard.class;
 		}
+		
 	}, VALUABLE {
 
 		@Override

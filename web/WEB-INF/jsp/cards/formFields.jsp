@@ -22,6 +22,6 @@
 <fieldset>
  		<legend><fmt:message key="gadgets" /></legend>
  		<c:forEach items="${gadgets}" var="gadget" varStatus="s">
-  		<input class="gadget" type="checkbox" name="gadgets[${s.index }]" value="${gadget }" id="${gadget }" ${fn:contains(cardGadgets, gadget)? 'checked="checked"':'' }/><fmt:message key="${gadget}" />
+  			<input class="gadget" type="checkbox" name="gadgets[${s.index }]" value="${gadget }" id="${gadget }" ${fn:contains(cardGadgets, gadget)? 'checked="checked"':'' }/><fmt:message key="${gadget}" />
  		</c:forEach>
 </fieldset>

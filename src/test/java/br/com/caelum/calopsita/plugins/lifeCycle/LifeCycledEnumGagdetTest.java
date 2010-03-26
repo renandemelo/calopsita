@@ -6,7 +6,6 @@ import java.util.List;
 import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Card;
@@ -28,7 +27,7 @@ public class LifeCycledEnumGagdetTest extends AbstractDaoTest{
 		this.card.save();
 	}
 	
-	@Test @Ignore
+	@Test
 	public void testCreationOfLifeCycledCard() throws Exception {
 		List<Gadgets> gadgets = Arrays.asList(Gadgets.LIFE_CYCLE);		
 		card.addGadgets(gadgets);
