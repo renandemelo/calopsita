@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.caelum.calopsita.plugins.lifeCycle.LifeCycledCard;
+import br.com.caelum.calopsita.plugins.owner.AssignableCard;
 import br.com.caelum.calopsita.plugins.planning.PlanningCard;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 import br.com.caelum.calopsita.plugins.roi.ValuableCard;
@@ -38,6 +39,16 @@ public enum Gadgets {
 		@Override
 		public Class<? extends Gadget> gadgetClass() {
 			return LifeCycledCard.class;
+		}
+	}, ASSIGNABLE {
+		@Override
+		public AssignableCard createGadgetFor(Card card) {
+			return AssignableCard.of(card);
+		}
+
+		@Override
+		public Class<? extends Gadget> gadgetClass() {
+			return AssignableCard.class;
 		}
 	}, VALUABLE {
 

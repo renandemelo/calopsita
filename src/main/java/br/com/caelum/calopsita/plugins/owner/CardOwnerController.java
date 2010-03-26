@@ -6,7 +6,6 @@ import org.joda.time.LocalDate;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
-import br.com.caelum.calopsita.plugins.prioritization.PrioritizationRepository;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
