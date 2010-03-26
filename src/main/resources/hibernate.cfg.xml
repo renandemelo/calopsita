@@ -27,5 +27,6 @@
 		<mapping class="br.com.caelum.calopsita.plugins.planning.PlanningCard" />
 		<mapping class="br.com.caelum.calopsita.plugins.roi.ValuableCard" />
 		<mapping class="br.com.caelum.calopsita.plugins.lifeCycle.LifeCycledCard" />
+		<mapping class="br.com.caelum.calopsita.plugins.owner.AssignableCard" />
 	</session-factory>
 </hibernate-configuration>

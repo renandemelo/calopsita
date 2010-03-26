@@ -62,7 +62,10 @@ public class AssignableCard implements Gadget {
 
 	@Override
 	public String getHtml() {
-		return "<span class=\"assignable\" title=\"Owner\">Owned by " + owner.getName() + "</span>";
+		if (owner != null){
+			return "<sub class=\"assignable\" title=\"Owner\">Owned by " + owner.getName() + "</sub>";
+		}
+		else return "<sub class=\"assignable\" title=\"Owner\">Owned by -----</sub>";
 	}
 
 }

@@ -153,6 +153,10 @@ input.error {
 	color: #999;
 }
 
+.assignable {
+	color: #999;
+}
+
 textarea {
 	width: 465px;
 	height: 180px;
