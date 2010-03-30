@@ -72,7 +72,13 @@ public class LifeCycledCard implements Gadget{
 	@Override
 	public String getHtml() {
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
-		return "<div>" + formatter.print(creationDate) + "</div>";
+		String htmls = "<div> Creation Date: " + formatter.print(creationDate);
+		if (this.finishDate != null) {
+			htmls = htmls + "<br /> Finish Date: " + formatter.print(finishDate);
+		}
+		htmls = htmls + "</div>";
+		
+		return htmls;
 	}
 
 	public static LifeCycledCard of(Card card) {
@@ -84,8 +90,9 @@ public class LifeCycledCard implements Gadget{
 
 	@Override
 	public void processEvent(Event event) {
-		// TODO Auto-generated method stub
-		
+		if (event.equals(Event.END)) {
+			this.setFinishDate(new LocalDate());
+		}
 	}
 	
 

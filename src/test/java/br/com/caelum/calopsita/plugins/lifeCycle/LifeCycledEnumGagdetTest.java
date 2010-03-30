@@ -37,4 +37,6 @@ public class LifeCycledEnumGagdetTest extends AbstractDaoTest{
 		Assert.assertEquals(new LocalDate(), lifeCycledCard.getCreationDate());
 	}
 	
+	
+	
 }
