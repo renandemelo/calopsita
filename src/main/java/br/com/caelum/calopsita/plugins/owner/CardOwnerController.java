@@ -1,23 +1,30 @@
 package br.com.caelum.calopsita.plugins.owner;
 
+import static br.com.caelum.vraptor.view.Results.nothing;
+
 import java.util.List;
 
 import org.joda.time.LocalDate;
 
+import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
+import br.com.caelum.calopsita.model.User;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
-import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
 @Resource
 public class CardOwnerController {
 	private final Result result;
+	private final SessionUser sessionUser;
+	private final AssignableCardRepository repository;
 
-	public CardOwnerController(Result result) {
+	public CardOwnerController(Result result, SessionUser user, AssignableCardRepository repository) {
 		this.result = result;
+		this.sessionUser = user;
+		this.repository = repository;
 	}
 
 	@Path("/projects/{iteration.project.id}/iterations/{iteration.id}/cardOwner/") @Get
@@ -29,7 +36,12 @@ public class CardOwnerController {
     	return iteration.getCards();
     }
 	
-	@Path("/projects/{iteration.project.id}/iterations/{iteration.id}/cardOwner/") @Post
-	public void assign(Iteration iteration) {
+	@Path("/projects/{iteration.project.id}/iterations/{iteration.id}/cardOwner/card/{card.id}/") @Get
+	public void assign(Iteration iteration, User owner, Card card) {
+		AssignableCard assignableCard = card.getGadget(AssignableCard.class);
+		assignableCard.setOwner(sessionUser.getUser());
+		System.out.println(sessionUser.getUser().getName());
+		repository.save(assignableCard);
+		result.use(nothing());
 	}
 }

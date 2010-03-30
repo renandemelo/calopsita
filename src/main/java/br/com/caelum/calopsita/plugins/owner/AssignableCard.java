@@ -16,7 +16,7 @@ import br.com.caelum.calopsita.model.User;
 
 @Entity
 public class AssignableCard implements Gadget {
-	
+
 	@Id
 	@GeneratedValue(generator = "custom")
 	@GenericGenerator(name = "custom", strategy = "foreign", parameters = @Parameter(name = "property", value = "card"))
@@ -25,16 +25,16 @@ public class AssignableCard implements Gadget {
 	@OneToOne
 	@PrimaryKeyJoinColumn
 	private Card card;
-	
+
 	@ManyToOne
 	private User owner;
-	
+
 	public static AssignableCard of(Card card) {
 		AssignableCard assignableCard = new AssignableCard();
 		assignableCard.setCard(card);
 		return assignableCard;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -62,10 +62,25 @@ public class AssignableCard implements Gadget {
 
 	@Override
 	public String getHtml() {
-		if (owner != null){
-			return "<sub class=\"assignable\" title=\"Owner\">Owned by " + owner.getName() + "</sub>";
-		}
-		else return "<sub class=\"assignable\" title=\"Owner\">Owned by -----</sub>";
+		if (owner != null) {
+			return "<sub class=\"assignable\" title=\"Owner\" align=\"right\">Owned by "
+					+ owner.getName()
+					+ " <a href=\"/calopsita/projects/"
+					+ card.getProject().getId()
+					+ "/iterations/"
+					+ card.getIteration().getId()
+					+ "/cardOwner/card/"
+					+ card.getId() + "\">Be a Owner now!</a></sub>";
+		} else
+			return "<sub class=\"assignable\" title=\"Owner\" align=\"right\">Owned by nobody. <a href=\"/calopsita/projects/"
+					+ (card.getProject() != null ? card.getProject().getId()
+							: 0)
+					+ "/iterations/"
+					+ (card.getIteration() != null ? card.getIteration()
+							.getId() : 0)
+					+ "/cardOwner/card/"
+					+ card.getId()
+					+ "\">Be a Owner now!</a></sub>";
 	}
 
 }
