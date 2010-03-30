@@ -15,6 +15,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Event;
 import br.com.caelum.calopsita.model.Gadget;
 
 @Entity
@@ -80,5 +81,12 @@ public class LifeCycledCard implements Gadget{
 		lifeCycledCard.setCreationDate(new LocalDate());
 		return lifeCycledCard;
 	}
+
+	@Override
+	public void processEvent(Event event) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 
 }

@@ -29,7 +29,7 @@ public class LifeCycledEnumGagdetTest extends AbstractDaoTest{
 	
 	@Test
 	public void testCreationOfLifeCycledCard() throws Exception {
-		List<Gadgets> gadgets = Arrays.asList(Gadgets.LIFE_CYCLE);		
+		List<Gadgets> gadgets = Arrays.asList(Gadgets.LIFE_CYCLE);
 		card.addGadgets(gadgets);
 		session.flush();
 		LifeCycledCard lifeCycledCard = (LifeCycledCard) card.getGadgets().get(0);
