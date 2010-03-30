@@ -15,9 +15,13 @@ import org.joda.time.LocalDate;
 
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Event;
+import br.com.caelum.calopsita.model.Gadget;
+import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
+import br.com.caelum.calopsita.model.Card.Status;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -101,6 +105,12 @@ public class IterationsController {
 			Card loaded = card.load();
 			loaded.setIteration(iteration);
 			loaded.setStatus(card.getStatus());
+			if(Status.DONE.equals(card.getStatus())){
+				for (Gadget gadget : card.getGadgets()) {
+					gadget.processEvent(Event.END);
+				}
+			}
+			
 			loaded.update();
 		}
     	show(iteration);

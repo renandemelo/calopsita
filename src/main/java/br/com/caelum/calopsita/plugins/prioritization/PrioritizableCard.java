@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Event;
 import br.com.caelum.calopsita.model.Gadget;
 
 @Entity
@@ -70,6 +71,12 @@ public class PrioritizableCard implements Gadget {
 		} else {
 			return "" + priority;
 		}
+	}
+
+	@Override
+	public void processEvent(Event event) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

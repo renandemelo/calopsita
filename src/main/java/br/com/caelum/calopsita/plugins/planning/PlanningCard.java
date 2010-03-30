@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Event;
 import br.com.caelum.calopsita.model.Gadget;
 
 @Entity
@@ -51,6 +52,12 @@ public class PlanningCard implements Gadget {
 
 	public String getHtml() {
 		return "";
+	}
+
+	@Override
+	public void processEvent(Event event) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

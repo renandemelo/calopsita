@@ -11,6 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Event;
 import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.User;
 
@@ -66,6 +67,12 @@ public class AssignableCard implements Gadget {
 			return "<sub class=\"assignable\" title=\"Owner\">Owned by " + owner.getName() + "</sub>";
 		}
 		else return "<sub class=\"assignable\" title=\"Owner\">Owned by -----</sub>";
+	}
+
+	@Override
+	public void processEvent(Event event) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
