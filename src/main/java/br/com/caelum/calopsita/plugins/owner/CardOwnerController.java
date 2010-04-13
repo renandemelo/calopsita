@@ -13,6 +13,7 @@ import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.User;
+import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
@@ -41,15 +42,14 @@ public class CardOwnerController {
 		return iteration.getCards();
 	}
 
-	@Path("/projects/{iteration.project.id}/iterations/{card.iteration.id}/card/{card.id}/cardOwner/")
+	@Path("/projects/{card.project.id}/iterations/{card.iteration.id}/card/{card.id}/cardOwner/")
 	@Get
-	public void assign(Iteration iteration, Card card) {
-		AssignableCard assignableCard = card.getGadget(AssignableCard.class);
+	public void assign(Card card) {
+		Card loaded = card.load();
+		AssignableCard assignableCard = loaded.getGadget(AssignableCard.class);
 		assignableCard.setOwner(sessionUser.getUser());
-		System.out.println(sessionUser.getUser().getName());
-		System.out.println(iteration.getId());
 		repository.save(assignableCard);
-		this.result.use(logic()).redirectTo(CardOwnerController.class).list(iteration);
+		result.use(logic()).redirectTo(CardOwnerController.class).list(loaded.getIteration());
 		
 	}
 }
