@@ -70,8 +70,8 @@ public class AssignableCard implements Gadget {
 					+ card.getProject().getId()
 					+ "/iterations/"
 					+ card.getIteration().getId()
-					+ "/cardOwner/card/"
-					+ card.getId() + "\">Be a Owner now!</a></sub>";
+					+ "/card/"
+					+ card.getId() + "/cardOwner/ \">Be a Owner now!</a></sub>";
 		} else
 			return "<sub class=\"assignable\" title=\"Owner\" align=\"right\">Owned by nobody. <a href=\"/calopsita/projects/"
 					+ (card.getProject() != null ? card.getProject().getId()
@@ -79,9 +79,9 @@ public class AssignableCard implements Gadget {
 					+ "/iterations/"
 					+ (card.getIteration() != null ? card.getIteration()
 							.getId() : 0)
-					+ "/cardOwner/card/"
+					+ "/card/"
 					+ card.getId()
-					+ "\">Be a Owner now!</a></sub>";
+					+ "/cardOwner/ \">Be an Owner now!</a></sub>";
 	}
 
 	@Override
