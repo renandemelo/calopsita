@@ -53,7 +53,7 @@ public class WhenActions {
 	}
 	
 	public void iClickButton (String button) {
-		browser.currentPage().click("Cancel")
+		browser.currentPage().click("Cancel");
 		browser.waitForPageLoad(3000);
 	}
 
