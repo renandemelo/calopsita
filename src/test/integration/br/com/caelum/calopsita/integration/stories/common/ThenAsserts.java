@@ -121,6 +121,10 @@ public class ThenAsserts {
 	public void iMustBeInMyMainPage() {
 		assertThat(browser.currentPage().title(), containsString("Project"));
 	}
+	
+	public void iMustBeInPendingCardPage() {
+		assertThat(div("tab3"), containsText("li class=\"story card\""));
+	}
 
 	public ThenAsserts appearsOnCardsListAtPosition(int i) {
 		appearsOnList("cards").atPosition(i);

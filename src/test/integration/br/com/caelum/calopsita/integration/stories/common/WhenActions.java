@@ -51,6 +51,11 @@ public class WhenActions {
 	public void iClickOn(String link) {
 		browser.currentPage().clickLink(link);
 	}
+	
+	public void iClickButton (String button) {
+		browser.currentPage().click("Cancel");
+		browser.waitForPageLoad(3000);
+	}
 
 	public void iOpenProjectPageDirectly() {
 		browser.open("/calopsita/projects/new/");

@@ -64,4 +64,5 @@ public class LifeCycledCardTest extends AbstractDaoTest{
 		session.save(lifeCicledCard);
 		Assert.assertEquals(new LocalDate(), lifeCicledCard.getFinishDate());
 	}
+	
 }
