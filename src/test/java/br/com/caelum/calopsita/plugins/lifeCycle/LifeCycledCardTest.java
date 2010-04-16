@@ -1,11 +1,14 @@
 package br.com.caelum.calopsita.plugins.lifeCycle;
 
+import static org.junit.Assert.*;
+
 import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Event;
 import br.com.caelum.calopsita.persistence.dao.AbstractDaoTest;
 import br.com.caelum.calopsita.plugins.lifeCycle.LifeCycledCard;
 
@@ -54,4 +57,12 @@ public class LifeCycledCardTest extends AbstractDaoTest{
 		LifeCycledCard savedCicledCard = (LifeCycledCard) session.load(LifeCycledCard.class, id);
 		Assert.assertEquals(date, savedCicledCard.getFinishDate());
 	}
+	
+	@Test
+	public void gettingTheFinishingDate() throws Exception {
+		lifeCicledCard.processEvent(Event.END);
+		session.save(lifeCicledCard);
+		Assert.assertEquals(new LocalDate(), lifeCicledCard.getFinishDate());
+	}
+	
 }

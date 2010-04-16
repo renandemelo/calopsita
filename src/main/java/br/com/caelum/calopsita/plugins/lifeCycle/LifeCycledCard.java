@@ -15,6 +15,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Event;
 import br.com.caelum.calopsita.model.Gadget;
 
 @Entity
@@ -71,7 +72,13 @@ public class LifeCycledCard implements Gadget{
 	@Override
 	public String getHtml() {
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
-		return "<div>" + formatter.print(creationDate) + "</div>";
+		String htmls = "<div> Creation Date: " + formatter.print(creationDate);
+		if (this.finishDate != null) {
+			htmls = htmls + "<br /> Finish Date: " + formatter.print(finishDate);
+		}
+		htmls = htmls + "</div>";
+		
+		return htmls;
 	}
 
 	public static LifeCycledCard of(Card card) {
@@ -80,5 +87,13 @@ public class LifeCycledCard implements Gadget{
 		lifeCycledCard.setCreationDate(new LocalDate());
 		return lifeCycledCard;
 	}
+
+	@Override
+	public void processEvent(Event event) {
+		if (event.equals(Event.END)) {
+			this.setFinishDate(new LocalDate());
+		}
+	}
+	
 
 }

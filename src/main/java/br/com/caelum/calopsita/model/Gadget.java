@@ -7,6 +7,8 @@ package br.com.caelum.calopsita.model;
 public interface Gadget {
 
 	Card getCard();
+	
+	void processEvent(Event event);
 
 	String getHtml();
 }

@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Event;
 import br.com.caelum.calopsita.model.Gadget;
 
 @Entity
@@ -54,6 +55,12 @@ public class ValuableCard implements Gadget{
 	@Override
 	public String getHtml() {
 		return "<span class=\"roi\" name=\"ROI "+ roiValue +"\" onClick=\"editROI("+ id + ", this)\" title=\"Return of Investment\">" + roiValue + "</span>";
+	}
+
+	@Override
+	public void processEvent(Event event) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
