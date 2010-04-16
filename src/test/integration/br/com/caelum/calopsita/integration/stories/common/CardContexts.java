@@ -9,6 +9,7 @@ import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.model.Card.Status;
 import br.com.caelum.calopsita.persistence.dao.UserDao;
 import br.com.caelum.calopsita.plugins.lifeCycle.LifeCycledCard;
+import br.com.caelum.calopsita.plugins.owner.AssignableCard;
 import br.com.caelum.calopsita.plugins.planning.PlanningCard;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 import br.com.caelum.calopsita.plugins.roi.ValuableCard;
@@ -79,6 +80,14 @@ public class CardContexts<T extends ProjectContexts<T>> {
 		return this;
 	}
 
+
+	public CardContexts<T> assignable() {
+		session.save(AssignableCard.of(card));
+		session.flush();
+		return this;
+	}
+
+	
 	public CardContexts<T> planningCard() {
 		session.save(PlanningCard.of(card));
 		session.flush();

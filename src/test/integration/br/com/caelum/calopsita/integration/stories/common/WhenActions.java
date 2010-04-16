@@ -160,6 +160,16 @@ public class WhenActions {
 		return this;
 	}
 
+	public WhenActions iOpenThePageOfCurrentIteration() {
+		iClickOn("Current Iteration");
+		return this;
+	}
+
+	public WhenActions iOpenThePageOfOwner() {
+		iClickOn("Owner");
+		return this;
+	}
+	
 	public WhenActions and() {
 		return this;
 	}
@@ -343,6 +353,11 @@ public class WhenActions {
 		return this;
 	}
 
+	public WhenActions assignableCard() {
+		this.gadgets.add(Gadgets.ASSIGNABLE);
+		return this;
+	}
+	
 	public WhenActions prioritizable() {
 		this.gadgets.add(Gadgets.PRIORITIZATION);
 		return this;
@@ -392,4 +407,5 @@ public class WhenActions {
 		browser.currentPage().invoke("$('.roiForm').submit()");
 		waitForAjax();
 	}
+
 }

@@ -274,8 +274,18 @@ public class ThenAsserts {
 	public void hasROI(int roiValue) {
 		assertThat(div(divName), containsText("" + roiValue));
 	}
+	
+	public ThenAsserts hasOwnerGadget() {
+		assertThat(div(divName), containsText("Owned by"));
+		return this;
+	}
 
 	public void hasCreationDate(LocalDate today) {
 		assertThat(div(divName), containsText("" + today));
+	}
+
+	public void isOwnedBy(String owner) {
+		assertThat(div(divName), containsText("Owned by "+ owner));
+		
 	}
 }

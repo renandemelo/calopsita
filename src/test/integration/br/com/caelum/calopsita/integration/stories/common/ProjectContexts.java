@@ -1,8 +1,11 @@
 package br.com.caelum.calopsita.integration.stories.common;
 
 import java.util.Arrays;
+import java.util.Calendar;
 
 import org.hibernate.Session;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.CardType;
@@ -51,6 +54,17 @@ public class ProjectContexts<T extends ProjectContexts<T>> extends GivenContexts
 		Iteration iteration = new Iteration();
 		iteration.setGoal(goal);
 		iteration.setProject(project);
+		session.save(iteration);
+		session.flush();
+		return new IterationContexts(iteration, session, browser);
+	}
+	
+	public IterationContexts withACurrentIterationWhichGoalIs(String goal) {
+		Iteration iteration = new Iteration();
+		iteration.setGoal(goal);
+		iteration.setProject(project);
+		iteration.setStartDate(new LocalDate());
+		iteration.setEndDate(new LocalDate());
 		session.save(iteration);
 		session.flush();
 		return new IterationContexts(iteration, session, browser);
