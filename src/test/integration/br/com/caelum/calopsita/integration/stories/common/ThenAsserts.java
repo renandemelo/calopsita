@@ -11,7 +11,12 @@ import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.hibernate.Session;
+import org.hibernate.validator.AssertTrue;
 import org.joda.time.LocalDate;
+import org.junit.Assert;
+import org.junit.Ignore;
+
+import com.gargoylesoftware.htmlunit.html.HtmlUnorderedList;
 
 import br.com.caelum.seleniumdsl.Browser;
 import br.com.caelum.seleniumdsl.ContentTag;
@@ -122,8 +127,12 @@ public class ThenAsserts {
 		assertThat(browser.currentPage().title(), containsString("Project"));
 	}
 	
-	public void iMustBeInPendingCardPage() {
-		assertThat(div("tab3"), containsText("li class=\"story card\""));
+	public void iMustBeOnCardsPage() {
+		// TODO: did not finish this test
+		ContentTag div = browser.currentPage().div("main");
+		//selected
+		
+//		Assert.assertNull(null);
 	}
 
 	public ThenAsserts appearsOnCardsListAtPosition(int i) {
@@ -291,5 +300,10 @@ public class ThenAsserts {
 	public void isOwnedBy(String owner) {
 		assertThat(div(divName), containsText("Owned by "+ owner));
 		
+	}
+
+	public ThenAsserts iAmNotEditingCard() {
+		assertThat(div("main"), containsText("When you choose a card type, related gadgets will be selected."));
+		return this;
 	}
 }

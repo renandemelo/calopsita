@@ -18,7 +18,7 @@
 					<textarea class="description" name="project.description">${fn:escapeXml(project.description) }</textarea>
 				</p>
 				<input class="description" type="submit" value="<fmt:message key="edit"/>" />
-				<input class="description" type="reset" value="<fmt:message key="cancel"/>" onclick="window.location = '<c:url value="/projects/"/>'"/>
+				<input class="description" type="reset" value="<fmt:message key="cancel"/>" onclick="javascript: history.back(1);"/>
 			</form>
 		</div>
 	</div>
