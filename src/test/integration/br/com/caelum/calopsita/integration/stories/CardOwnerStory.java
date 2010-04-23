@@ -32,16 +32,15 @@ public class CardOwnerStory extends DefaultStory {
 		then.theCard("schedule date").hasOwnerGadget();
 	}
 	
-//	@Test
-//	public void addingOwnerToAssignableCard() throws Exception {
-//		given.thereIsAnUserNamed("adriano").and()
-//			.thereIsAProjectNamed("Marriage").ownedBy("adriano")
-//			.withACurrentIterationWhichGoalIs("Postpone").and()
-//			.withACardNamed("schedule date").planningCard().assignable().and()
-//			.iAmLoggedInAs("adriano");
-//		when.iOpenProjectPageOf("Marriage").and()
-//			.iOpenThePageOfCurrentIteration().and()
-//			.iClickOn("Be an Owner now!");
-//		then.theCard("schedule date").isOwnedBy("adriano");
-//	}
+	@Test
+	public void addingOwnerToAssignableCard() throws Exception {
+		given.thereIsAnUserNamed("adriano").and()
+			.thereIsAProjectNamed("Marriage").ownedBy("adriano")
+			.withACurrentIterationWhichGoalIs("Postpone")
+			.withACardNamed("schedule date").planningCard().assignable().and()
+			.iAmLoggedInAs("adriano");
+		when.iOpenProjectPageOf("Marriage").and()
+		.iOpenIterationsPage().iOpenThePageOfIterationWithGoal("Postpone").iClickOn("Be an Owner now!");
+		then.currentIterationCardList().isOwnedBy("adriano");
+	}
 }
