@@ -113,6 +113,12 @@ public class ThenAsserts {
 		return this;
 	}
 
+	public ThenAsserts currentIterationCardList() {
+		
+		this.divName = "cards";//"iteration_cards";
+		return this;
+	}
+	
 	public void hasDescription(String description) {
 		assertThat(div(divName), containsText(description));
 	}
@@ -290,7 +296,7 @@ public class ThenAsserts {
 	}
 
 	public void isOwnedBy(String owner) {
-		assertThat(div(divName), containsText("Owned by "+ owner));
+		assertThat(div(divName), containsText("Owned by " + owner));
 		
 	}
 
