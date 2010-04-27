@@ -10,4 +10,6 @@ public interface CardTypeRepository {
 	void save(CardType cardType);
 
 	List<CardType> listFrom(Project project);
+
+	CardType load(CardType cardType);
 }

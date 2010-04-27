@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -81,5 +82,9 @@ public class CardType implements FromProject {
 
 	public void setProject(Project project) {
 		this.project = project;
+	}
+
+	public CardType load() {
+		return getRepository().load(this);
 	}
 }
