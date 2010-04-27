@@ -126,14 +126,6 @@ public class ThenAsserts {
 	public void iMustBeInMyMainPage() {
 		assertThat(browser.currentPage().title(), containsString("Project"));
 	}
-	
-	public void iMustBeOnCardsPage() {
-		// TODO: did not finish this test
-		ContentTag div = browser.currentPage().div("main");
-		//selected
-		
-//		Assert.assertNull(null);
-	}
 
 	public ThenAsserts appearsOnCardsListAtPosition(int i) {
 		appearsOnList("cards").atPosition(i);
@@ -305,5 +297,9 @@ public class ThenAsserts {
 	public ThenAsserts iAmNotEditingCard() {
 		assertThat(div("main"), containsText("When you choose a card type, related gadgets will be selected."));
 		return this;
+	}
+
+	public void iMustBeOnAddCardsPage() {
+		assertThat(div("main"), containsText("Last added cards"));
 	}
 }

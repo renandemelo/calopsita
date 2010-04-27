@@ -20,10 +20,9 @@ public class EditCardStory extends DefaultStory {
 		         .withACardNamed("cartao").and()
 		     .iAmLoggedInAs("Juju");
 		when.iOpenProjectPageOf("Wars").and()
-		    .iOpenCardsPage().and()
+		    .iOpenAddCardsPage().and()
 		    .iEditTheCard("cartao")
 		    .iClickButton("Cancel");
-		then.iAmNotEditingCard().and()
-		    .iMustBeOnCardsPage();
+		then.iMustBeOnAddCardsPage();
 	}
 }
