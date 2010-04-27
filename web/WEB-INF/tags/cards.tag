@@ -32,7 +32,7 @@
 			<div class="description"><pre>${fn:escapeXml(card.description) }</pre></div>
 			<div class="gadgets">
 				<c:forEach items="${card.gadgets}" var="gadget">
-					${gadget.html }
+					${gadget.html}
 				</c:forEach>
 			</div>
 			<div class="action">

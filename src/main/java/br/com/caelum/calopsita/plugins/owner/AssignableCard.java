@@ -63,25 +63,14 @@ public class AssignableCard implements Gadget {
 
 	@Override
 	public String getHtml() {
-		if (owner != null) {
-			return "<sub class=\"assignable\" title=\"Owner\" align=\"right\">Owned by "
-					+ owner.getName()
-					+ " <a href=\"/calopsita/projects/"
-					+ card.getProject().getId()
-					+ "/iterations/"
-					+ card.getIteration().getId()
-					+ "/card/"
-					+ card.getId() + "/cardOwner/ \">Be a Owner now!</a></sub>";
-		} else
-			return "<sub class=\"assignable\" title=\"Owner\" align=\"right\">Owned by nobody. <a href=\"/calopsita/projects/"
-					+ (card.getProject() != null ? card.getProject().getId()
-							: 0)
-					+ "/iterations/"
-					+ (card.getIteration() != null ? card.getIteration()
-							.getId() : 0)
-					+ "/card/"
-					+ card.getId()
-					+ "/cardOwner/ \">Be an Owner now!</a></sub>";
+		String ownerString = (owner != null)? owner.getName():"nobody";
+		String html = "<sub class=\"assignable\" title=\"Owner\" align=\"right\"> Owned by :cardOwner" +  
+						" <a href=\"#\" onclick='confirmation(:project_id,:iteration_id,:card_id);'>Be an Owner now!</a></sub>";
+		html = html.replace(":cardOwner", ownerString);
+		html = html.replace(":project_id", card.getProject().getId().toString());
+		html = html.replace(":iteration_id", card.getIteration().getId().toString());
+		html = html.replace(":card_id", card.getId().toString());
+		return html;
 	}
 
 	@Override
