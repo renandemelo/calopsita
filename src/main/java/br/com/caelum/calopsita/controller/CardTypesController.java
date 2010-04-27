@@ -1,7 +1,11 @@
 package br.com.caelum.calopsita.controller;
 
 import static br.com.caelum.vraptor.view.Results.logic;
+
+import java.util.List;
+
 import br.com.caelum.calopsita.model.CardType;
+import br.com.caelum.calopsita.model.Gadget;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.vraptor.Get;
@@ -30,4 +34,18 @@ public class CardTypesController {
 		cardType.save();
 		result.use(logic()).redirectTo(CardTypesController.class).list(cardType.getProject());
 	}
+//	
+//	@Path("/projects/{cardType.project.id}/cardTypes/{cardType.id}") @Get
+//	public void edit (Project project, CardType type) {
+//		
+//	}
+	
+//	@Path("/projects/{cardType.project.id}/cardTypes/{cardType.id}") @Post
+//	public void update (CardType cardType, List<Gadget> gadgets) {
+////		cardType
+//
+//		
+////		cardType.save();
+////		result.use(logic()).redirectTo(CardTypesController.class).list(cardType.getProject());
+//	}
 }

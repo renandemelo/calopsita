@@ -53,7 +53,7 @@ public class WhenActions {
 	}
 	
 	public void iClickButton (String button) {
-		browser.currentPage().click("Cancel");
+		browser.currentPage().click(button);
 		browser.waitForPageLoad(3000);
 	}
 
@@ -411,6 +411,11 @@ public class WhenActions {
 		browser.currentPage().form("roiForm").field("newRoi").type(roiValue);
 		browser.currentPage().invoke("$('.roiForm').submit()");
 		waitForAjax();
+	}
+
+	public WhenActions iOpenAddCardsPage() {
+		iClickOn("Add Card");
+		return this;
 	}
 
 }

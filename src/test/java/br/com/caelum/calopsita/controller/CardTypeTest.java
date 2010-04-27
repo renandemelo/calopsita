@@ -38,6 +38,15 @@ public class CardTypeTest {
 	}
 
 	@Test
+	public void updatingACardType() throws Exception {
+		CardType type = givenACardType();
+
+		shouldSaveOnRepository(type);
+
+		whenISaveOnController(type);
+	}
+
+	@Test
 	public void listingCardTypes() throws Exception {
 		Project project = givenAProject();
 

@@ -42,7 +42,7 @@ public class DefaultStory {
     @Before
     public void setUp() {
         factory = new HtmlUnitFactory();
-	//factory = new SeleniumFactory();
+        //factory = new SeleniumFactory();
         Browser browser = factory.getBrowser();
         session = sessionFactory.openSession();
         given = new GivenContexts(browser, session);

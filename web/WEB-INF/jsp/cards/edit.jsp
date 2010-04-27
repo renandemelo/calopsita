@@ -19,7 +19,7 @@
 			<%@include file="formFields.jsp" %>
 			<p>
 				<input class="buttons" type="submit" value="<fmt:message key="update"/>"/>
-				<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="window.location = '<c:url value="/projects/${card.project.id}/cards/"/>'" name="Cancel"/>
+				<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" onclick="javascript: history.back(1);" id="Cancel" name="Cancel"/>
 			</p>
 		</form>
 	</div>
