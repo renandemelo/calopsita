@@ -13,6 +13,7 @@ import org.junit.BeforeClass;
 
 import br.com.caelum.calopsita.integration.BrowserFactory;
 import br.com.caelum.calopsita.integration.HtmlUnitFactory;
+import br.com.caelum.calopsita.integration.SeleniumFactory;
 
 import br.com.caelum.seleniumdsl.Browser;
 
@@ -41,6 +42,7 @@ public class DefaultStory {
     @Before
     public void setUp() {
         factory = new HtmlUnitFactory();
+	//factory = new SeleniumFactory();
         Browser browser = factory.getBrowser();
         session = sessionFactory.openSession();
         given = new GivenContexts(browser, session);
