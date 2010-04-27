@@ -305,7 +305,7 @@ public class ThenAsserts {
 		return this;
 	}
 
-	public void iMustBeOnAddCardsPage() {
-		assertThat(div("main"), containsText("Last added cards"));
+	public void iMustBeOnPendingCardsPage() {
+	    assertThat(div("current_page"), containsText("Pending cards"));	    
 	}
 }
