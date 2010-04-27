@@ -26,4 +26,8 @@ public class CardTypeDao implements CardTypeRepository {
 			.setParameter("project", project)
 			.list();
 	}
+
+	public CardType load(CardType cardType) {
+		return (CardType) session.load(CardType.class, cardType.getId());
+	}
 }

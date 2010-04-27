@@ -17,25 +17,42 @@
 		</c:forEach>
 	</ul>
 
-	<div class="clear"><a href="javascript:toggle('formCard')"><fmt:message
-		key="add.cardType" /></a>
-	<form class="hidden" id="formCard"
-		action="<c:url value="/projects/${project.id }/cardTypes/" />"
+	<div class="clear">
+	<hr>
+	<a href="<c:url value="/projects/${project.id }/cardTypes/" />"><fmt:message key="add.cardType" /></a>
+	<c:choose>
+		<c:when test="${cardType} != null">
+			<c:url var="urlActionForm" value="/projects/${project.id }/cardTypes/${cardType.id}" />
+			<c:otherwise>
+				<c:url var="urlActionForm" value="/projects/${project.id }/cardTypes/" />	
+			</c:otherwise>
+		</c:when>
+	</c:choose>
+	 
+	<form id="formCard"
+		action="<c:out value="${urlActionForm}" />"
 		method="post">
+		
+		<input type="hidden" name="cardtype.id" value="<c:out value="${cardType.id}" />" />
 	<p><label><fmt:message key="card.name" /></label> <em>*</em><input
-		type="text" name="cardType.name" /></p>
+		type="text" name="cardType.name" value="<c:out value="${cardType.name}" />"/></p>
 		
 	<fieldset title="<fmt:message key="gadgets" />"><legend><fmt:message
-		key="gadgets" /></legend> <c:forEach items="${gadgets}" var="gadget"
-		varStatus="s">
-		<input type="checkbox" name="cardType.gadgets[${s.index }]"
-			value="${gadget }" id="${gadget }" />
-		<fmt:message key="${gadget}" />
-	</c:forEach></fieldset>
-	<p><input class="buttons" type="submit"
-		value="<fmt:message key="add"/>" /> <input class="buttons"
-		type="reset" value="<fmt:message key="cancel"/>"
-		onclick="toggleForm();" /></p>
+		key="gadgets" /></legend> 
+		<li>Lista</li>
+		<c:forEach items="${cardTypeGadgets}" var="cardTypeGadget" varStatus="s">
+			<li>Gadget: ${cardTypeGadget }</li>
+		</c:forEach>
+		<c:forEach items="${gadgets}" var="gadget" varStatus="s">
+			<input type="checkbox" name="cardType.gadgets[${s.index }]"
+				value="${gadget }" id="${gadget }" ${fn:contains(cardTypeGadgets, gadget)? 'checked="checked"':'' }/>
+			<fmt:message key="${gadget}" />
+		</c:forEach>
+	</fieldset>
+	<p>
+		<input class="buttons" type="submit" value="<fmt:message key="add"/>" /> 
+		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" />
+	</p>
 	</form>
 	</div>
 </page:applyDecorator>

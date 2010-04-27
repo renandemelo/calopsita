@@ -16,6 +16,7 @@
 <body>
 
 <div id="tab3">
+	<div id="current_page" style="display: none;">Pending cards</div>
 	<calopsita:cards cards="${cards}" listId="cards" description="true"/>
 </div>
 </body>
