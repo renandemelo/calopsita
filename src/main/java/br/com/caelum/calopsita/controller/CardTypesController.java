@@ -37,15 +37,21 @@ public class CardTypesController {
 	
 	@Path("/projects/{cardType.project.id}/cardTypes/{cardType.id}/") @Get
 	public void edit (CardType cardType) {
-	 	result.include("cardType", cardType.load());
-	 	result.include("cardTypeGadgets", cardType.getGadgets());
-		result.redirectTo(this).list(cardType.getProject());
+	 	CardType load = cardType.load();
+		List<Gadgets> gadgets = load.getGadgets();
+		Project project = load.getProject().load();
+		result.include("cardType", load);
+		result.include("cardTypeGadgets", gadgets);
+		result.forwardTo(CardTypesController.class).list(project);
 	}
 	
 	@Path("/projects/{cardType.project.id}/cardTypes/{cardType.id}/") @Post
 	public void update (CardType cardType, List<Gadget> gadgets) {
-//		cardType		
-//		cardType.save();
-		result.redirectTo(this).list(cardType.getProject());
+		CardType load = cardType.load();
+		load.setName(cardType.getName());
+		load.setGadgets(cardType.getGadgets());
+		load.setProject(cardType.getProject());
+		load.update();
+		result.forwardTo(CardTypesController.class).list(cardType.getProject());
 	}
 }

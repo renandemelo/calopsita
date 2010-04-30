@@ -30,4 +30,9 @@ public class CardTypeDao implements CardTypeRepository {
 	public CardType load(CardType cardType) {
 		return (CardType) session.load(CardType.class, cardType.getId());
 	}
+
+	@Override
+	public void update(CardType cardType) {
+		session.update(cardType);
+	}
 }

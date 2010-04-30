@@ -12,4 +12,6 @@ public interface CardTypeRepository {
 	List<CardType> listFrom(Project project);
 
 	CardType load(CardType cardType);
+
+	void update(CardType cardType);
 }
