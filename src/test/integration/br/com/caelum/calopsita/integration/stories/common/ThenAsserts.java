@@ -11,12 +11,7 @@ import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.hibernate.Session;
-import org.hibernate.validator.AssertTrue;
 import org.joda.time.LocalDate;
-import org.junit.Assert;
-import org.junit.Ignore;
-
-import com.gargoylesoftware.htmlunit.html.HtmlUnorderedList;
 
 import br.com.caelum.seleniumdsl.Browser;
 import br.com.caelum.seleniumdsl.ContentTag;
@@ -307,5 +302,9 @@ public class ThenAsserts {
 
 	public void iMustBeOnPendingCardsPage() {
 	    assertThat(div("current_page"), containsText("Pending cards"));	    
+	}
+
+	public void iAmOnACardTypeEditionPage(String type) {
+		assertThat(div("main"), containsText("edit " + type));
 	}
 }

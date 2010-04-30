@@ -39,10 +39,7 @@
 		
 	<fieldset title="<fmt:message key="gadgets" />"><legend><fmt:message
 		key="gadgets" /></legend> 
-		<li>Lista</li>
-		<c:forEach items="${cardTypeGadgets}" var="cardTypeGadget" varStatus="s">
-			<li>Gadget: ${cardTypeGadget }</li>
-		</c:forEach>
+		
 		<c:forEach items="${gadgets}" var="gadget" varStatus="s">
 			<input type="checkbox" name="cardType.gadgets[${s.index }]"
 				value="${gadget }" id="${gadget }" ${fn:contains(cardTypeGadgets, gadget)? 'checked="checked"':'' }/>
@@ -50,7 +47,7 @@
 		</c:forEach>
 	</fieldset>
 	<p>
-		<input class="buttons" type="submit" value="<fmt:message key="add"/>" /> 
+		<input class="buttons" type="submit" value="<fmt:message key="save"/>" /> 
 		<input class="buttons" type="reset" value="<fmt:message key="cancel"/>" />
 	</p>
 	</form>

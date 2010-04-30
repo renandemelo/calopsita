@@ -87,4 +87,8 @@ public class CardType implements FromProject {
 	public CardType load() {
 		return getRepository().load(this);
 	}
+
+	public void update() {
+		getRepository().update(this);
+	}
 }
