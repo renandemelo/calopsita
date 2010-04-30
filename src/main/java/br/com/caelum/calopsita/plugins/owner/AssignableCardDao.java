@@ -28,7 +28,7 @@ public class AssignableCardDao implements AssignableCardRepository {
 	
 	@Override
 	public List<Card> listAllCardsFrom(Project project, User owner) {
-    	return this.session.createQuery("from AssignableCard ac where ac.project = :project and ac.status != 'DONE' and ac.owner = :owner")
+    	return this.session.createQuery("from AssignableCard ac inner join ac.project as project where ac.card.project = :project and ac.card.status != 'DONE' and ac.owner = :owner")
     	.setResultTransformer(transformer)
     	.setParameter("project", project)
     	.setParameter("owner", owner).list();

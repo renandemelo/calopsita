@@ -12,12 +12,15 @@ import br.com.caelum.calopsita.controller.CardsController;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
+import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
+import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class CardOwnerController {
@@ -51,5 +54,13 @@ public class CardOwnerController {
 		repository.save(assignableCard);
 		result.use(logic()).redirectTo(CardOwnerController.class).list(loaded.getIteration());
 		
+	}
+	
+	@Path("/projects/{card.project.id}/iterations/{card.iteration.id}/card/{card.id}/cardOwner/")
+	@Post
+	public void isAlreadyOwner(Card card, Project project) {
+		List<Card> cardList = repository.listAllCardsFrom(project, sessionUser.getUser());
+		boolean isAlreadyOwner = cardList.size() > 0; 
+		result.use(Results.json()).from(isAlreadyOwner).serialize();
 	}
 }

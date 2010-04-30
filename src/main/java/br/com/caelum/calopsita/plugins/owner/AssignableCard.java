@@ -68,7 +68,7 @@ public class AssignableCard implements Gadget {
 						" <a href=\"#\" onclick='confirmation(:project_id,:iteration_id,:card_id);'>Be an Owner now!</a></sub>";
 		html = html.replace(":cardOwner", ownerString);
 		html = html.replace(":project_id", card.getProject().getId().toString());
-		html = html.replace(":iteration_id", card.getIteration().getId().toString());
+		html = html.replace(":iteration_id", card.getIteration() != null ? card.getIteration().getId().toString() : "0");
 		html = html.replace(":card_id", card.getId().toString());
 		return html;
 	}
