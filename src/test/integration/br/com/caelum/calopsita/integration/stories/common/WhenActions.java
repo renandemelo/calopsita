@@ -52,9 +52,10 @@ public class WhenActions {
 		browser.currentPage().clickLink(link);
 	}
 	
-	public void iClickButton (String button) {
+	public WhenActions iClickButton (String button) {
 		browser.currentPage().click(button);
 		browser.waitForPageLoad(3000);
+		return this;
 	}
 
 	public void iOpenProjectPageDirectly() {
@@ -382,9 +383,10 @@ public class WhenActions {
 		return this;
 	}
 
-	public void iOpenCardTypesPage() {
+	public WhenActions iOpenCardTypesPage() {
 		iClickOn("Card Types");
 		waitForAjax();
+		return this;
 	}
 
 	public WhenActions iOpenColaboratorsPage() {
