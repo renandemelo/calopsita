@@ -1,5 +1,7 @@
 package br.com.caelum.calopsita.integration.stories.common;
 
+import java.util.Locale;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -26,16 +28,22 @@ public class DefaultStory {
     protected Session session;
     private Transaction transaction;
 	private static AnnotationConfiguration cfg;
-
+	private static Locale TESTS_LOCALE = Locale.US;
+	private static Locale earlierLocale;
+	
     @BeforeClass
     public static void prepare() {
         cfg = new AnnotationConfiguration().configure();
         cfg.setProperty("hibernate.connection.url", "jdbc:hsqldb:hsql://localhost:9005/calopsita");
-        sessionFactory = cfg.buildSessionFactory();
+        sessionFactory = cfg.buildSessionFactory();       
+        
+        earlierLocale = Locale.getDefault();
+		Locale.setDefault(TESTS_LOCALE);
     }
 
     @AfterClass
     public static void destroy() {
+    	Locale.setDefault(earlierLocale);
     	sessionFactory.close();
     }
 

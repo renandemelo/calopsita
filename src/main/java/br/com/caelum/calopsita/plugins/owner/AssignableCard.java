@@ -62,10 +62,10 @@ public class AssignableCard implements Gadget {
 	}
 
 	@Override
-	public String getHtml() {
+	public String getHtml() {		
 		String ownerString = (owner != null)? owner.getName():"nobody";
 		String html = "<sub class=\"assignable\" title=\"Owner\" align=\"right\"> Owned by :cardOwner" +  
-						" <a href=\"#\" onclick='confirmation(:project_id,:iteration_id,:card_id);'>Be an Owner now!</a></sub>";
+						" <a href=\"/calopsita/projects/:project_id/iterations/:iteration_id/card/:card_id/cardOwner/\">Be an Owner now!</a></sub>";
 		html = html.replace(":cardOwner", ownerString);
 		html = html.replace(":project_id", card.getProject().getId().toString());
 		html = html.replace(":iteration_id", card.getIteration() != null ? card.getIteration().getId().toString() : "0");

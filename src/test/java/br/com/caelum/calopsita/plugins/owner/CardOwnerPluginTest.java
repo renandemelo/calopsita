@@ -46,10 +46,6 @@ public class CardOwnerPluginTest {
 		
 	}
 	
-	@Test
-	public void listCardsFromIteration() throws Exception {
-		org.junit.Assert.assertTrue(false);
-	}
 	
 	@Test
 	public void shouldNotIncludePluginMenusWhenThereIsNoProject() throws Exception {
