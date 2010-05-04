@@ -1,6 +1,7 @@
 package br.com.caelum.calopsita.integration.stories.common;
 
 import static org.hamcrest.Matchers.allOf;
+
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -12,7 +13,9 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.hibernate.Session;
 import org.joda.time.LocalDate;
+import static org.junit.Assert.*;
 
+import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.seleniumdsl.Browser;
 import br.com.caelum.seleniumdsl.ContentTag;
 
@@ -307,4 +310,28 @@ public class ThenAsserts {
 	public void iAmOnACardTypeEditionPage(String type) {
 		assertThat(div("main"), containsText("edit " + type));
 	}
+
+	public ThenAsserts theListedCardType(String name) {
+		this.divName = "cardTypesList";
+		this.name = name;
+		return this;
+		
+	}
+	
+	public ThenAsserts existsAsCardTypeInList() {
+		assertThat(div(divName), containsText(name));
+		return this;
+	}
+
+	public ThenAsserts cardTypeGadgetIsSet(Gadgets gadget) {
+		assertTrue(browser.currentPage().form("formCard").isChecked(gadget.name()));
+		return this;
+	}
+
+	public ThenAsserts cardTypeGadgetIsNotSet(Gadgets gadget) {
+		assertFalse(browser.currentPage().form("formCard").isChecked(gadget.name()));
+		return this;
+		
+	}
+	
 }

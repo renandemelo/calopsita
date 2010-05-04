@@ -228,7 +228,7 @@ public class WhenActions {
 	}
 
 	public WhenActions iOpenThePageOfCardNamed(String cardName) {
-		browser.currentPage().click("edit " + cardName);
+		iClickEditCardType(cardName);
 		return this;
 	}
 
@@ -417,6 +417,39 @@ public class WhenActions {
 
 	public WhenActions iOpenAddCardsPage() {
 		iClickOn("Add Card");
+		return this;
+	}
+
+	public WhenActions iEditTheCardTypeName(String name, String newName) {
+		iOpenEditCardTypePage(name);
+		//Editar Nome
+		browser.currentPage().form("formCard").field("cardType.name")
+				.type(newName);
+		return this;
+	}
+
+	public void iOpenEditCardTypePage(String name) {
+		iOpenCardTypesPage();
+		iClickEditCardType(name);
+	}
+
+	public void iClickEditCardType(String name) {
+		//Clicar no botao de editar do tipo de cartao 
+		browser.currentPage().click("edit "+name);
+	}
+
+	public WhenActions iRemoveCardTypeGadget(Gadgets gadget) {
+		browser.currentPage().form("formCard").uncheck(gadget.name());
+		return this;
+	}
+	
+	public WhenActions iAddCardTypeGadget(Gadgets gadget) {
+		browser.currentPage().form("formCard").check(gadget.name());
+		return this;
+	}
+
+	public WhenActions saveEditedCardType() {
+		browser.currentPage().form("formCard").submit();
 		return this;
 	}
 

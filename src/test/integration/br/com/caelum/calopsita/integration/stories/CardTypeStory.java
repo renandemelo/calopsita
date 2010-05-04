@@ -48,4 +48,23 @@ public class CardTypeStory extends DefaultStory {
 
 	}
 
+	@Test
+	public void updateACardTypeName(){
+		given.thereIsAnUserNamed("kung").and()
+		.thereIsAProjectNamed("Whatever Project").ownedBy("kung")
+			.withACardTypeNamed("OriginalType")
+				.withGadgets(Gadgets.PRIORITIZATION).and()
+				.iAmLoggedInAs("kung");
+		when.iOpenProjectPageOf("Whatever Project").and()
+		.iOpenAdminPage().and()
+		.iEditTheCardTypeName("OriginalType", "NewType").and()
+		.iRemoveCardTypeGadget(Gadgets.PRIORITIZATION).and()
+		.iAddCardTypeGadget(Gadgets.PLANNING).and()
+		.saveEditedCardType().and()
+		.iOpenEditCardTypePage("NewType");
+		then.theListedCardType("NewType").existsAsCardTypeInList().and()
+		.cardTypeGadgetIsSet(Gadgets.PLANNING).and()
+		.cardTypeGadgetIsNotSet(Gadgets.PRIORITIZATION); 
+	}
+	
 }
