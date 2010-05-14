@@ -37,7 +37,7 @@ public class DefaultMenus {
 		if (parameters.contains("card")) {
 			Card card = parameters.get("card");
 			menu.getOrCreate("cards")
-				.add(new SubmenuItem("card.edit", "/projects/" + project.getId() + "/cards/" + card.getId() + "/edit/"))
+				.add(new SubmenuItem("card.edit", "/projects/" + project.getId() + "/cards/" + card.getId() + "/"))
 				.add(new SubmenuItem("card.subcard.new", "/projects/" + project.getId() + "/cards/" + card.getId() + "/subcards/new/"))
 				.add(new SubmenuItem("card.subcards", "/projects/" + project.getId() + "/cards/" + card.getId() + "/subcards/"));
 		}

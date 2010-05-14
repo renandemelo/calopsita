@@ -453,4 +453,9 @@ public class WhenActions {
 		return this;
 	}
 
+	public WhenActions iOpenEditCardByMenu() {
+		iClickOn("Edit Card");
+		return this;
+	}
+
 }
