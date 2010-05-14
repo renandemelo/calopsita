@@ -49,7 +49,7 @@ public class CardTypeStory extends DefaultStory {
 	}
 
 	@Test
-	public void updateACardTypeName(){
+	public void editACardTypeName(){
 		given.thereIsAnUserNamed("kung").and()
 		.thereIsAProjectNamed("Whatever Project").ownedBy("kung")
 			.withACardTypeNamed("OriginalType")
@@ -67,4 +67,19 @@ public class CardTypeStory extends DefaultStory {
 		.cardTypeGadgetIsNotSet(Gadgets.PRIORITIZATION); 
 	}
 	
+	@Test
+	public void editACardTypeShowsSuccessMessage(){
+		given.thereIsAnUserNamed("kung").and()
+		.thereIsAProjectNamed("Whatever Project").ownedBy("kung")
+			.withACardTypeNamed("OriginalType")
+				.withGadgets(Gadgets.PRIORITIZATION).and()
+				.iAmLoggedInAs("kung");
+		when.iOpenProjectPageOf("Whatever Project").and()
+		.iOpenAdminPage().and()
+		.iEditTheCardTypeName("OriginalType", "NewType").and()
+		.iRemoveCardTypeGadget(Gadgets.PRIORITIZATION).and()
+		.iAddCardTypeGadget(Gadgets.PLANNING).and()
+		.saveEditedCardType();
+		then.thereIsSuccessMessage("Card type was succesfully edited");
+	}
 }

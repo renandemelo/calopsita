@@ -308,7 +308,7 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts iAmNotEditingCard() {
-		assertThat(div("main"), containsText("When you choose a card type, related gadgets will be selected."));
+		assertThat(div("main"), not(containsText("When you choose a card type, related gadgets will be selected.")));
 		return this;
 	}
 
@@ -346,6 +346,15 @@ public class ThenAsserts {
 		assertFalse(browser.currentPage().form("formCard").isChecked(gadget.name()));
 		return this;
 		
+	}
+
+	public ThenAsserts iMustBeOnEditCardPage() {
+		assertThat(div("main"), containsText("When you choose a card type, related gadgets will be selected."));
+		return this;
+	}
+
+	public void thereIsSuccessMessage(String message) {
+		assertThat(div("main"), containsText(message));
 	}
 	
 }

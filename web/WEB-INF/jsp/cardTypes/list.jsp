@@ -48,6 +48,9 @@
 		value="<fmt:message key="save"/>" /> <input class="buttons"
 		type="button"  name="cancel" value="<fmt:message key="cancel"/>" onclick="location.href='<c:url value="/projects/${project.id }/cardTypes/" />';"  /></p>
 	</form>
+	<div id="success_message" style="color: blue;">
+	<c:out value="${message }"></c:out>
+	</div>
 	</div>
 
 </page:applyDecorator>

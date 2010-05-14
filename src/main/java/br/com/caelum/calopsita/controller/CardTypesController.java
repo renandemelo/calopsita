@@ -53,6 +53,7 @@ public class CardTypesController {
 		load.setGadgets(cardType.getGadgets());
 		load.setProject(cardType.getProject());
 		load.update();
+		result.include("message", "Card type was succesfully edited");
 		result.forwardTo(CardTypesController.class).list(cardType.getProject());
 	}
 }
