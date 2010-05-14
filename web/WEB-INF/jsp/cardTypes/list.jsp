@@ -50,6 +50,9 @@
 		value="<fmt:message key="save"/>" /> <input class="buttons"
 		type="reset" value="<fmt:message key="cancel"/>" /></p>
 	</form>
+	<div id="success_message" style="color: blue;">
+	<c:out value="${message }"></c:out>
+	</div>
 	</div>
 
 </page:applyDecorator>

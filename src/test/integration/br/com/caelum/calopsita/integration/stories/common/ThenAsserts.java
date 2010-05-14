@@ -342,5 +342,9 @@ public class ThenAsserts {
 		assertThat(div("main"), containsText("When you choose a card type, related gadgets will be selected."));
 		return this;
 	}
+
+	public void thereIsSuccessMessage(String message) {
+		assertThat(div("main"), containsText(message));
+	}
 	
 }
