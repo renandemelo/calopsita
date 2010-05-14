@@ -68,6 +68,11 @@ public class ThenAsserts {
         return this;
     }
 
+    public ThenAsserts doesntAppearsOnCardType(String buttonText) {
+        assertThat(div(divName), not(containsText(buttonText)));
+        return this;
+    }
+    
     public ThenAsserts appearsOnTodoList() {
     	this.divName = "todo_cards";
     	appearsOnList();
@@ -324,6 +329,11 @@ public class ThenAsserts {
 	
 	public ThenAsserts existsAsCardTypeInList() {
 		assertThat(div(divName), containsText(name));
+		return this;
+	}
+	
+	public ThenAsserts isCardTypeNameClear() {
+		assertTrue(browser.currentPage().form("formCard").field("cardType.name").content().isEmpty());
 		return this;
 	}
 

@@ -452,5 +452,10 @@ public class WhenActions {
 		browser.currentPage().form("formCard").submit();
 		return this;
 	}
+	
+	public WhenActions cancelEditedCardType() {
+		browser.currentPage().form("formCard").click("cancel");
+		return this;
+	}
 
 }

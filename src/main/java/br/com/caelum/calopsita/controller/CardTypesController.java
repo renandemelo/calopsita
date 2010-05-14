@@ -35,6 +35,7 @@ public class CardTypesController {
 		result.use(logic()).redirectTo(CardTypesController.class).list(cardType.getProject());
 	}
 	
+	
 	@Path("/projects/{cardType.project.id}/cardTypes/{cardType.id}/") @Get
 	public void edit (CardType cardType) {
 	 	CardType load = cardType.load();

@@ -8,9 +8,7 @@
 			<div class="action" id="${type.name }"><a
 				class="ui-icon ui-icon-pencil" name="edit ${type.name }"
 				title="<fmt:message key="edit"/>"
-				href="<c:url value="/projects/${type.project.id}/cardTypes/${type.id}/"/>"></a>
-			<a class="ui-icon ui-icon-closethick" name="delete ${type.name }"
-				href="javascript:void(0)" title="<fmt:message key="delete"/>"></a>
+				href="<c:url value="/projects/${type.project.id}/cardTypes/${type.id}/"/>"></a>			
 			</div>
 			</li>
 		</c:forEach>
@@ -48,7 +46,7 @@
 	</c:forEach></fieldset>
 	<p><input class="buttons" type="submit"
 		value="<fmt:message key="save"/>" /> <input class="buttons"
-		type="reset" value="<fmt:message key="cancel"/>" /></p>
+		type="button"  name="cancel" value="<fmt:message key="cancel"/>" onclick="location.href='<c:url value="/projects/${project.id }/cardTypes/" />';"  /></p>
 	</form>
 	</div>
 

@@ -61,6 +61,7 @@ public class CardOwnerController {
 	public void isAlreadyOwner(Card card, Project project) {
 		List<Card> cardList = repository.listAllCardsFrom(project, sessionUser.getUser());
 		boolean isAlreadyOwner = cardList.size() > 0; 
+		System.out.println(cardList);
 		result.use(Results.json()).from(isAlreadyOwner).serialize();
 	}
 }
