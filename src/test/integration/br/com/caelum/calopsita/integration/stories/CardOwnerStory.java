@@ -15,9 +15,21 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
  *
  */
 public class CardOwnerStory extends DefaultStory {
-
+	
 	@Test
-	public void addingAnAssignableCard() {
+	public void verifyThatAssignableCardWithIterationContainsOwnerLink(){
+		given.thereIsAnUserNamed("adriano").and()
+			.thereIsAProjectNamed("Marriage").ownedBy("adriano")
+			.withACurrentIterationWhichGoalIs("Postpone")
+			.withACardNamed("schedule date").planningCard().assignable().and()
+			.iAmLoggedInAs("adriano");
+		when.iOpenProjectPageOf("Marriage").and()
+		.iOpenIterationsPage().iOpenThePageOfIterationWithGoal("Postpone");
+		then.currentIterationCards().hasOwnerGadget();
+	}
+	
+	@Test
+	public void addingAnAssignableCardWithoutInteration() {
 		given.thereIsAnUserNamed("adriano").and()
 			.thereIsAProjectNamed("Marriage").ownedBy("adriano")
 			.withAnIterationWhichGoalIs("Postpone").and()
@@ -29,7 +41,7 @@ public class CardOwnerStory extends DefaultStory {
 				.withDescription("we need a date for marriage").and()
 			.iOpenCardsPage().and()
 			.iOpenAllCardsPage();
-		then.theCard("schedule date").hasOwnerGadget();
+		then.theCard("schedule date").hasNotOwnerGadget();
 	}
 	
 	@Test
@@ -43,4 +55,7 @@ public class CardOwnerStory extends DefaultStory {
 		.iOpenIterationsPage().iOpenThePageOfIterationWithGoal("Postpone").iClickOn("Be an Owner now!");
 		then.currentIterationCardList().isOwnedBy("adriano");
 	}
+	
+	
+	
 }

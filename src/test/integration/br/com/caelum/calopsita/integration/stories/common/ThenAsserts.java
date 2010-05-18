@@ -121,8 +121,12 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts currentIterationCardList() {
-		
 		this.divName = "cards";//"iteration_cards";
+		return this;
+	}
+	
+	public ThenAsserts currentIterationCards() {
+		this.divName = "iteration_cards";
 		return this;
 	}
 	
@@ -295,6 +299,11 @@ public class ThenAsserts {
 	
 	public ThenAsserts hasOwnerGadget() {
 		assertThat(div(divName), containsText("Owned by"));
+		return this;
+	}
+	
+	public ThenAsserts hasNotOwnerGadget() {
+		assertThat(div(divName), not(containsText("Owned by")));
 		return this;
 	}
 

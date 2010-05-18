@@ -123,6 +123,5 @@ public class CardContexts<T extends ProjectContexts<T>> {
 		session.save(lifeCicledCard);
 		session.flush();
 		return this;
-	}
-	
+	}	
 }
