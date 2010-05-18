@@ -17,7 +17,9 @@
 
 	<div class="clear">
 	<hr>
+	<c:if test="${not empty message}">
 	<span class="success"><c:out value="${message }" ></c:out></span><br /><br />
+	</c:if>
 	
 	<a href="<c:url value="/projects/${project.id }/cardTypes/" />"><fmt:message
 		key="add.cardType" /></a><c:choose>
