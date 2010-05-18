@@ -17,8 +17,10 @@
 
 	<div class="clear">
 	<hr>
+	<span class="success"><c:out value="${message }" ></c:out></span><br /><br />
+	
 	<a href="<c:url value="/projects/${project.id }/cardTypes/" />"><fmt:message
-		key="add.cardType" /></a> <c:choose>
+		key="add.cardType" /></a><c:choose>
 		<c:when test="${cardType} != null">
 			<c:url var="urlActionForm"
 				value="/projects/${project.id }/cardTypes/${cardType.id}" />
@@ -49,7 +51,7 @@
 		type="button"  name="cancel" value="<fmt:message key="cancel"/>" onclick="location.href='<c:url value="/projects/${project.id }/cardTypes/" />';"  /></p>
 	</form>
 	<div id="success_message" style="color: blue;">
-	<c:out value="${message }"></c:out>
+	
 	</div>
 	</div>
 

@@ -83,3 +83,8 @@ body {
 #toggleHelp.newbie > * {
 	background-color: #eeeeee;
 }
+
+.success {
+	background: #CCFFCC;
+	padding: 2px 10px;
+}

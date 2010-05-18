@@ -24,7 +24,7 @@ public class CardTypesController {
 
 	@Path("/projects/{project.id}/cardTypes/") @Get
 	public void list(Project project) {
-		result.include("project", project);
+		result.include("project", project.load());
 		result.include("cardTypeList", project.getCardTypes());
 		result.include("gadgets", Gadgets.values());
 	}
