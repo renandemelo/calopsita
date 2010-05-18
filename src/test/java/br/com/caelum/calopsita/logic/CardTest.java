@@ -125,11 +125,17 @@ public class CardTest {
     	Card subcard = givenACard();
     	subcard.setParent(card);
 
+    	Card subsubcard = givenACard();
+    	subsubcard.setParent(subcard);
+    	
     	Card returned = givenTheCardIsInThisProject(card);
     	givenTheCardHasSubCard(returned, subcard);
 
+    	givenTheCardHasSubCard(subcard, subsubcard);
+   	
     	shouldRemoveTheCardFromRepository(returned);
     	shouldRemoveTheCardFromRepository(subcard);
+    	shouldRemoveTheCardFromRepository(subsubcard);
 
     	logic.delete(card, true);
 
@@ -145,6 +151,7 @@ public class CardTest {
 		});
 	}
 
+    
 
 	@Test
     public void removeACardButNotSubcards() throws Exception {

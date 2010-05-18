@@ -95,13 +95,16 @@ public class Card implements Identifiable, FromProject {
 
 	public List<Long> deleteSubCards() {
 		List<Long> ids = new ArrayList<Long>();
+		
 		for (Card sub : getSubcards()) {
+			ids.addAll(sub.deleteSubCards());
 			ids.add(sub.getId());
             getRepository().remove(sub);
         }
 		return ids;
 	}
 
+	
 	public void detachSubCards() {
 		for (Card sub : getSubcards()) {
             sub.setParent(null);
