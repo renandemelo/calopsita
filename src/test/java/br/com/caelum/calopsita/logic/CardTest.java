@@ -12,6 +12,7 @@ import java.util.List;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.controller.CardsController;
@@ -19,9 +20,11 @@ import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.mocks.MockHttpSession;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadgets;
+import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
+import br.com.caelum.calopsita.repository.IterationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.util.test.MockResult;
 import br.com.caelum.vraptor.util.test.MockValidator;
@@ -33,6 +36,7 @@ public class CardTest {
 	private CardRepository repository;
 	private Card currentCard;
 	private ProjectRepository projectRepository;
+	private IterationRepository iterationRepository;
     private Project project;
 	private User currentUser;
 	private MockValidator validator;
@@ -49,6 +53,8 @@ public class CardTest {
 		projectRepository = mockery.mock(ProjectRepository.class);
 		project = new Project(projectRepository);
 
+		iterationRepository = mockery.mock(IterationRepository.class);
+		
 		validator = new MockValidator();
 		logic = new CardsController(new MockResult(), validator, sessionUser);
     }
@@ -68,6 +74,26 @@ public class CardTest {
 		mockery.assertIsSatisfied();
 	}
 
+    @Test @Ignore
+	public void savingACardWithParent() throws Exception {
+    	Project project = givenAProject();
+		Card card = givenACard();
+		Card parent = givenACard();
+		
+		card.setParent(parent);		
+
+		shouldSaveOnTheRepositoryTheCard(card);
+		shouldLoadOnTheRepositoryTheCard(parent);
+		shouldSaveOnTheRepositoryTheCard(parent);
+		givenTheCardHasSubCard(parent,card);
+
+		whenISaveTheCard(card, onThe(project));
+
+		assertThat(card.getProject(), is(project));
+		assertThat(card.getCreator(), is(currentUser));
+		mockery.assertIsSatisfied();
+	}
+    
     @Test
 	public void editingACardsDescription() throws Exception {
     	Card card = givenACard();
@@ -435,7 +461,20 @@ public class CardTest {
 		});
 
 	}
+	
+	private void shouldLoadOnTheRepositoryTheCard(final Card card) {
+		mockery.checking(new Expectations() {
+			{
+				allowing(projectRepository);
+				one(repository).load(card);
+				will(returnValue(card));
 
+			}
+		});
+
+	}
+	
+	
 	private Project onThe(Project project) {
 		return project;
 	}
@@ -448,6 +487,11 @@ public class CardTest {
 	private Project givenAProject() {
 		Project project2 = new Project(projectRepository);
 		return project2;
+	}
+	
+	private Iteration givenAnIteration() {
+		Iteration iteration = new Iteration(iterationRepository);
+		return iteration;
 	}
 
 	private Card givenACard() {

@@ -166,6 +166,9 @@ public class Card implements Identifiable, FromProject {
 
 	public void setIteration(Iteration iteration) {
 		this.iteration = iteration;
+		for(Card card : getSubcards()){
+			card.setIteration(iteration);
+		}
 	}
 
 	public Iteration getIteration() {
