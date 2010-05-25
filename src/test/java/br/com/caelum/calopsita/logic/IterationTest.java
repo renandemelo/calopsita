@@ -82,11 +82,14 @@ public class IterationTest {
 	}
     @Test
     public void removingACardOfAnIteration() throws Exception {
+
     	Iteration iteration = givenAnIteration();
     	Card card = givenACard();
 
     	Card loaded = givenLoadedCardContainsIteration(card, iteration);
 
+    	
+    	
     	whenIRemoveTheCardOfIteration(card, iteration);
 
     	assertThat(loaded.getIteration(), is(nullValue()));
@@ -388,16 +391,16 @@ public class IterationTest {
 	}
 
 	private void givenTheIterationHasThisCard(final Card card, final Iteration returnedIteration) {
-        returnedIteration.addCard(card);
-        card.setIteration(returnedIteration);
-
-
 		mockery.checking(new Expectations() {
 			{
+				one(cardRepository).listSubcards(card);
 				one(iterationRepository).listCards(returnedIteration);
 				will(returnValue(Arrays.asList(card)));
 			}
 		});
+		
+		returnedIteration.addCard(card);
+        card.setIteration(returnedIteration);		
     }
 
     private void givenTheProjectIsOwnedBy(User user) {
@@ -454,8 +457,6 @@ public class IterationTest {
 
 		mockery.checking(new Expectations() {
 			{
-				loaded.setIteration(iteration);
-
 				one(cardRepository).load(card);
 				will(returnValue(loaded));
 
