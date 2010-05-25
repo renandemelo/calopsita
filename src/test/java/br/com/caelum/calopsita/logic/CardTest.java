@@ -79,12 +79,16 @@ public class CardTest {
     	Project project = givenAProject();
 		Card card = givenACard();
 		Card parent = givenACard();
-		
-		card.setParent(parent);		
+		Iteration iteration = givenAnIteration();
 
-		shouldSaveOnTheRepositoryTheCard(card);
-		shouldLoadOnTheRepositoryTheCard(parent);
 		shouldSaveOnTheRepositoryTheCard(parent);
+		shouldLoadOnTheRepositoryTheCard(parent);
+		
+		shouldSaveOnTheRepositoryTheCard(card);
+		shouldLoadOnTheRepositoryTheCard(card);
+		
+		card.setParent(parent);	
+		
 		givenTheCardHasSubCard(parent,card);
 
 		whenISaveTheCard(card, onThe(project));
