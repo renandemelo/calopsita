@@ -55,7 +55,7 @@ public class CardContexts<T extends ProjectContexts<T>> {
 	}
 
 	public void setIteration(Iteration iteration) {
-		card.setIteration(iteration);
+		card.setIterationWithoutCardRepository(iteration);
 	}
 
 	/**

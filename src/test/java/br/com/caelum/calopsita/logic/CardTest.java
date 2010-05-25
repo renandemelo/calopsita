@@ -74,23 +74,67 @@ public class CardTest {
 		mockery.assertIsSatisfied();
 	}
 
-    @Test @Ignore
-	public void savingACardWithParent() throws Exception {
+    @Test
+	public void savingACardWithParentWithIteration() throws Exception {
     	Project project = givenAProject();
-		Card card = givenACard();
-		Card parent = givenACard();
+		final Card card = givenACard();
+		card.setName("Child");
+		final Card parent = givenACard();
+		parent.setName("Parent");
+		Iteration iteration = givenAnIteration();
 		
-		card.setParent(parent);		
+		mockery.checking(new Expectations() {
+			{
+				one(repository).listSubcards(parent);
+				will(returnValue(Arrays.asList()));
+			}
+		});
+		
+		parent.setIteration(iteration);
+		
+		mockery.checking(new Expectations() {
+			{
+				one(repository).listSubcards(card);
+				will(returnValue(Arrays.asList()));
+			}
+		});
+		card.setParent(parent);	
+		
+		assertThat(parent.getIteration(), is(iteration));
+		assertThat(card.getIteration(), is(iteration));
+		
+		mockery.assertIsSatisfied();
+	}
+    
+    @Test
+	public void settingNewIterationToAParentCard() throws Exception {
+    	Project project = givenAProject();
+		final Card card = givenACard();
+		card.setName("Child");
+		final Card parent = givenACard();
+		parent.setName("Parent");
+		Iteration iteration = givenAnIteration();
+		
+		mockery.checking(new Expectations() {
+			{
+				one(repository).listSubcards(card);
+				will(returnValue(Arrays.asList()));
+			}
+		});
+		card.setParent(parent);	
+		
+		mockery.checking(new Expectations() {
+			{
+				one(repository).listSubcards(parent);
+				will(returnValue(Arrays.asList(card)));
+			}
+		});
 
-		shouldSaveOnTheRepositoryTheCard(card);
-		shouldLoadOnTheRepositoryTheCard(parent);
-		shouldSaveOnTheRepositoryTheCard(parent);
-		givenTheCardHasSubCard(parent,card);
-
-		whenISaveTheCard(card, onThe(project));
-
-		assertThat(card.getProject(), is(project));
-		assertThat(card.getCreator(), is(currentUser));
+		parent.setIteration(iteration);
+				
+		assertThat(parent.getIteration(), is(iteration));
+		assertThat(card.getIteration(), is(iteration));
+		
 		mockery.assertIsSatisfied();
 	}
     
