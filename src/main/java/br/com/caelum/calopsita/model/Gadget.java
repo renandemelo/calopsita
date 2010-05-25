@@ -11,4 +11,6 @@ public interface Gadget {
 	void processEvent(Event event);
 
 	String getHtml();
+	
+	String getUrlHtml();
 }

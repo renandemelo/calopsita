@@ -60,4 +60,10 @@ public class PlanningCard implements Gadget {
 		
 	}
 
+	@Override
+	public String getUrlHtml() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

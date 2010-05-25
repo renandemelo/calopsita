@@ -79,4 +79,10 @@ public class PrioritizableCard implements Gadget {
 		
 	}
 
+	@Override
+	public String getUrlHtml() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

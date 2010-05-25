@@ -63,24 +63,17 @@ public class AssignableCard implements Gadget {
 
 	@Override
 	public String getHtml() {		
-		String ownerString = (owner != null)? owner.getName():"nobody";
-		String html = "";
-		
-		if (this.card.getIteration() != null && this.card.getIteration().isCurrent()) {
-			html = "<sub class=\"assignable\" title=\"Owner\" align=\"right\"> Owned by :cardOwner" +  
-							" <a href=\"/calopsita/projects/:project_id/iterations/:iteration_id/card/:card_id/cardOwner/\">Be an Owner now!</a></sub>";
-			html = html.replace(":cardOwner", ownerString);
-			html = html.replace(":project_id", card.getProject().getId().toString());
-			html = html.replace(":iteration_id", card.getIteration() != null ? card.getIteration().getId().toString() : "0");
-			html = html.replace(":card_id", card.getId().toString());
-		}
-		return html;
+		return null;
 	}
 
 	@Override
 	public void processEvent(Event event) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
+	}
+
+	@Override
+	public String getUrlHtml() {
+		return "/WEB-INF/jsp/cardOwner/gadget.jsp";
 	}
 
 }

@@ -94,6 +94,12 @@ public class LifeCycledCard implements Gadget{
 			this.setFinishDate(new LocalDate());
 		}
 	}
+
+	@Override
+	public String getUrlHtml() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

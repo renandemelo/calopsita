@@ -31,8 +31,16 @@
 			
 			<div class="description"><pre>${fn:escapeXml(card.description) }</pre></div>
 			<div class="gadgets">
-				<c:forEach items="${card.gadgets}" var="gadget">
-					${gadget.html}
+				<c:forEach items="${card.gadgets}" var="gadget">					
+					<c:choose>
+						<c:when test="${gadget.urlHtml != null}">
+							<c:set var="gadgetForHtml" value="${gadget}" scope="request" />
+							<c:import url="${gadget.urlHtml}"></c:import>
+						</c:when>
+						<c:otherwise>
+							${gadget.html}	
+						</c:otherwise>
+					</c:choose>										
 				</c:forEach>
 			</div>
 			<div class="action">
