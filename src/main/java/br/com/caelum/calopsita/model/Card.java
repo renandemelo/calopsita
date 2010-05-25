@@ -170,6 +170,10 @@ public class Card implements Identifiable, FromProject {
 			card.setIteration(iteration);
 		}
 	}
+	
+	public void setIterationWithoutCardRepository(Iteration iteration) {
+		this.iteration = iteration;
+	}
 
 	public Iteration getIteration() {
 		return iteration;
@@ -185,8 +189,8 @@ public class Card implements Identifiable, FromProject {
 
 	public void setParent(Card parent) {
 		this.parent = parent;
-		if(parent.getIteration() != null) {
-			this.setIteration(parent.iteration);
+		if(parent != null && parent.getIteration() != null) {
+			this.setIteration(parent.getIteration());
 		}
 	}
 
