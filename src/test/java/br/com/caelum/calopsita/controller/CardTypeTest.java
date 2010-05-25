@@ -48,7 +48,7 @@ public class CardTypeTest {
 
 	@Test
 	public void listingCardTypes() throws Exception {
-		Project project = givenAProject();
+		final Project project = givenAProject();
 
 		shouldListCardTypesOf(project);
 
@@ -58,10 +58,10 @@ public class CardTypeTest {
 	}
 
 	private void shouldListCardTypesOf(final Project project) {
-
 		mockery.checking(new Expectations() {
 			{
 				one(projectRepository).listCardTypesFrom(project);
+				one(projectRepository).load(project);
 			}
 		});
 	}

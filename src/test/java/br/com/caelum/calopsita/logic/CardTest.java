@@ -499,7 +499,7 @@ public class CardTest {
 			{
 				allowing(projectRepository);
 
-				one(repository).add(card);
+				allowing(repository).add(card);
 
 			}
 		});

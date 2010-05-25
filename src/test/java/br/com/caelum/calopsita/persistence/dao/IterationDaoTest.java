@@ -3,6 +3,7 @@ package br.com.caelum.calopsita.persistence.dao;
 import static org.hamcrest.Matchers.hasItems;
 import static org.junit.Assert.assertThat;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import org.hibernate.Session;
@@ -16,26 +17,40 @@ import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.plugins.PluginResultTransformer;
 import br.com.caelum.calopsita.plugins.Transformer;
+import br.com.caelum.calopsita.repository.CardRepository;
 
 public class IterationDaoTest extends AbstractDaoTest {
 
     private IterationDao dao;
 	private Session mockSession;
+	private CardRepository cardRepository;
 
     @Override
 	@Before
     public void setUp() throws Exception {
     	super.setUp();
         dao = new IterationDao(session, new PluginResultTransformer(session, Collections.<Transformer>emptyList()));
+        cardRepository = mockery.mock(CardRepository.class);
     }
 
     @Test
 	public void orderingCardsByPriority() throws Exception {
     	Iteration iteration = givenAnIteration();
-    	Card card3 = givenACard(iteration);
+    	
+    	shouldRepositoryListSubcards();
+    	Card card3 = givenACard(iteration);    	
     	Card card1 = givenACard(iteration);
 
     	assertThat(dao.listCards(iteration), hasItems(card1, card3));
+    	
+	}
+
+	private void shouldRepositoryListSubcards() {
+		mockery.checking(new Expectations() {
+			{
+				allowing(cardRepository).listSubcards(with(any(Card.class)));				
+			}
+		});
 	}
 
     @Test
@@ -67,9 +82,9 @@ public class IterationDaoTest extends AbstractDaoTest {
 	}
 
 
-
+	
 	private Card givenACard(Iteration iteration) {
-		Card card = new Card();
+		Card card = new Card(cardRepository);
 		card.setName("Abc");
 		card.setDescription("Def");
 		card.setIteration(iteration);
