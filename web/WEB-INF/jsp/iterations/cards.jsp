@@ -4,6 +4,7 @@
 <html>
 <head>
 <%@include file="../javascripts.jspf" %>
+<script type="text/javascript" src="<c:url value="/javascript/project-cards.js"/>"></script>
 </head>
 <body>
 <div id="iteration_cards" class="selectable cards">

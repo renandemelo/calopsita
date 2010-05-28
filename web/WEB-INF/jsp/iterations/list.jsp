@@ -10,6 +10,9 @@
 	<script type="text/javascript" src="<c:url value="/javascript/jquery/jquery-impromptu.2.5.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/javascript/jquery/jquery.validate.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/javascript/iteration-list.js"/>"></script>
+	
+
+	
 </head>
 
 <body>
