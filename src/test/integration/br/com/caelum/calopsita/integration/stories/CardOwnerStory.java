@@ -41,7 +41,7 @@ public class CardOwnerStory extends DefaultStory {
 				.withDescription("we need a date for marriage").and()
 			.iOpenCardsPage().and()
 			.iOpenAllCardsPage();
-		then.theCard("schedule date").hasNotOwnerGadget();
+		then.theCard("schedule date").doesNotHaveOwnerGadget();
 	}
 	
 	@Test
@@ -52,8 +52,8 @@ public class CardOwnerStory extends DefaultStory {
 			.withACardNamed("schedule date").planningCard().assignable().and()
 			.iAmLoggedInAs("adriano");
 		when.iOpenProjectPageOf("Marriage").and()
-		.iOpenIterationsPage().iOpenThePageOfIterationWithGoal("Postpone").iClickOn("Be an Owner now!");
-		then.currentIterationCardList().isOwnedBy("adriano");
+			.iOpenIterationsPage().iOpenThePageOfIterationWithGoal("Postpone").iClickOn("Be an Owner now!");
+		then.currentIterationCardList().isOwnedBy("adriano").and().cannotClickToBeOwner();
 	}
 	
 	

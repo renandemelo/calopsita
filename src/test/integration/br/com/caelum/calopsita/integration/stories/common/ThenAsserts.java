@@ -302,7 +302,8 @@ public class ThenAsserts {
 		return this;
 	}
 	
-	public ThenAsserts hasNotOwnerGadget() {
+	
+	public ThenAsserts doesNotHaveOwnerGadget() {
 		assertThat(div(divName), not(containsText("Owned by")));
 		return this;
 	}
@@ -311,9 +312,9 @@ public class ThenAsserts {
 		assertThat(div(divName), containsText("" + today));
 	}
 
-	public void isOwnedBy(String owner) {
+	public ThenAsserts isOwnedBy(String owner) {
 		assertThat(div(divName), containsText("Owned by " + owner));
-		
+		return this;		
 	}
 
 	public ThenAsserts iAmNotEditingCard() {
@@ -364,6 +365,16 @@ public class ThenAsserts {
 
 	public void thereIsSuccessMessage(String message) {
 		assertThat(div("main"), containsText(message));
+	}
+
+	public ThenAsserts canClickToBeOwner() {
+		assertThat(div(divName), containsText("Be an Owner now!"));
+		return this;
+	}
+	
+	public ThenAsserts cannotClickToBeOwner() {
+		assertThat(div(divName), not(containsText("Be an Owner now!")));
+		return this;
 	}
 	
 }

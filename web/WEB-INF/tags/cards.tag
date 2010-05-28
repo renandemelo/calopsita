@@ -34,7 +34,7 @@
 				<c:forEach items="${card.gadgets}" var="gadget">					
 					<c:choose>
 						<c:when test="${gadget.urlHtml != null}">
-							<c:set var="gadgetForHtml" value="${gadget}" scope="request" />
+							<c:set var="gadgetForHtml" value="${gadget}" scope="request" />							
 							<c:import url="${gadget.urlHtml}"></c:import>
 						</c:when>
 						<c:otherwise>
