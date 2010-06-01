@@ -41,7 +41,7 @@ public class CardOwnerStory extends DefaultStory {
 				.withDescription("we need a date for marriage").and()
 			.iOpenCardsPage().and()
 			.iOpenAllCardsPage();
-		then.theCard("schedule date").hasOwnerGadget();
+		then.theCard("schedule date").hasNotOwnerGadget();
 	}
 	
 	@Test
