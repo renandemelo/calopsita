@@ -8,6 +8,9 @@
 	<script type="text/javascript" src="<c:url value="/javascript/jquery/selectableDraggable.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/javascript/jquery/jquery.validate.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/javascript/iteration-show.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/javascript/project-cards.js"/>"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="<c:url value="/css/impromptu.css"/>"></link>
+    <script type="text/javascript" src="<c:url value="/javascript/jquery/jquery-impromptu.2.5.min.js"/>"></script>
 </head>
 
 <body>

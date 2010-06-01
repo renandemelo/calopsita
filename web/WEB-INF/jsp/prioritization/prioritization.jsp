@@ -13,6 +13,7 @@
 		initialize('<fmt:message key="infinityPriority"/>', '<c:url value="/projects/${project.id }/prioritize/"/>');
 		selected = 1;
 	</script>
+	<script type="text/javascript" src="<c:url value="/javascript/project-cards.js"/>"></script>
 </head>
 
 <body>
