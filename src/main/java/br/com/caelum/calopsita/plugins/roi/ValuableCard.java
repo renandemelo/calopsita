@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Event;
@@ -16,7 +17,9 @@ public class ValuableCard implements Gadget{
 	private Long id;
 	
 	@OneToOne
+	@PrimaryKeyJoinColumn
 	private Card card;
+	
 	
 	private int roiValue;
 

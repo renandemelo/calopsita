@@ -121,4 +121,45 @@ public class DeleteEverythingStory extends DefaultStory {
 		then.project("archimedes").appearsOnList().and()
 			.deletionLinkDoesnotAppearForProject("archimedes");
 	}
+	
+	@Test
+	public void deleteAROICard() {
+		given.thereIsAnUserNamed("fabs").and()
+			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
+				.withACardNamed("Support everything").whichDescriptionIs("That is a mistake")
+				.withROI(5).and()
+			.iAmLoggedInAs("fabs");
+		when.iOpenProjectPageOf("method-finder").and()
+		    .iOpenCardsPage().and()
+			.iDeleteTheCard("Support everything").andConfirm("deletion");
+		then.theCard("Support everything").shouldNotAppearOnCardList();
+	}
+	
+	@Test
+	public void deleteAROICardAndSubCards() {
+		given.thereIsAnUserNamed("fabs").and()
+			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
+				.withACardNamed("Support everything").withROI(5).whichDescriptionIs("That is a mistake")
+				.withASubcardNamed("support continuations").whichDescriptionIs("continuations is good").and()
+			.iAmLoggedInAs("fabs");
+		when.iOpenProjectPageOf("method-finder").and()
+		    .iOpenCardsPage().and()
+			.iDeleteTheCard("Support everything").andConfirm("deletion").andConfirm("subcards");
+		then.theCard("Support everything").shouldNotAppearOnCardList()
+		    .theCard("support continuations").shouldNotAppearOnCardList();
+	}
+	
+	@Test
+	public void deleteAROICardButNotSubcards() {
+		given.thereIsAnUserNamed("fabs").and()
+			.thereIsAProjectNamed("method-finder").ownedBy("fabs")
+				.withACardNamed("Support everything").withROI(5).whichDescriptionIs("That is a mistake")
+				.withASubcardNamed("support continuations").whichDescriptionIs("continuations is good").and()
+			.iAmLoggedInAs("fabs");
+		when.iOpenProjectPageOf("method-finder").and()
+		    .iOpenCardsPage().and()
+			.iDeleteTheCard("Support everything").andConfirm("deletion").andDontConfirm("subcards");
+		then.theCard("Support everything").shouldNotAppearOnCardList()
+		    .theCard("support continuations").appearsOnList();
+	}
 }

@@ -29,7 +29,7 @@ public class CardOwnerStory extends DefaultStory {
 	}
 	
 	@Test
-	public void addingAnAssignableCardWithoutInteration() {
+	public void addingAnAssignableCardWithoutIteration() {
 		given.thereIsAnUserNamed("adriano").and()
 			.thereIsAProjectNamed("Marriage").ownedBy("adriano")
 			.withAnIterationWhichGoalIs("Postpone").and()

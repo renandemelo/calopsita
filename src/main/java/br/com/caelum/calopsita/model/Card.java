@@ -1,3 +1,4 @@
+
 package br.com.caelum.calopsita.model;
 
 import  java.util.ArrayList;

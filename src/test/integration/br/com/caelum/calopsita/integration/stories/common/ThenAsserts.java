@@ -303,7 +303,7 @@ public class ThenAsserts {
 	}
 	
 	public ThenAsserts hasNotOwnerGadget() {
-		assertThat(div(divName), not(containsText("Owned by")));
+		assertThat(div(divName), containsText("Owned by nobody"));
 		return this;
 	}
 

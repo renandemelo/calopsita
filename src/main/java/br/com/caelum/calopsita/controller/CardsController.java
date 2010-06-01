@@ -138,7 +138,6 @@ public class CardsController {
         } else {
         	loaded.detachSubCards();
         }
-
         loaded.delete();
         result.include("deleted", deleted);
 	}
