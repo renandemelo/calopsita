@@ -18,7 +18,7 @@ public class CardOwnerStory extends DefaultStory {
 	
 	@Test
 	public void verifyThatAssignableCardWithIterationContainsOwnerLink(){
-		given.thereIsAnUserNamed("adriano").and()
+		given.thereIsAnUserNamed("adriano","Adriano").and()
 			.thereIsAProjectNamed("Marriage").ownedBy("adriano")
 			.withACurrentIterationWhichGoalIs("Postpone")
 			.withACardNamed("schedule date").planningCard().assignable().and()
@@ -30,7 +30,7 @@ public class CardOwnerStory extends DefaultStory {
 	
 	@Test
 	public void addingAnAssignableCardWithoutIteration() {
-		given.thereIsAnUserNamed("adriano").and()
+		given.thereIsAnUserNamed("adriano","Adriano").and()
 			.thereIsAProjectNamed("Marriage").ownedBy("adriano")
 			.withAnIterationWhichGoalIs("Postpone").and()
 			.iAmLoggedInAs("adriano");
@@ -46,7 +46,7 @@ public class CardOwnerStory extends DefaultStory {
 	
 	@Test
 	public void addingOwnerToAssignableCard() throws Exception {
-		given.thereIsAnUserNamed("adriano").and()
+		given.thereIsAnUserNamed("adriano","Adriano").and()
 			.thereIsAProjectNamed("Marriage").ownedBy("adriano")
 			.withACurrentIterationWhichGoalIs("Postpone")
 			.withACardNamed("schedule date").planningCard().assignable().and()

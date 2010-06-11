@@ -25,15 +25,21 @@ public class GivenContexts {
     public void iAmOnTheRootPage() {
         browser.open("/calopsita");
     }
+    
 
-    public GivenContexts thereIsAnUserNamed(String login) {
+    public GivenContexts thereIsAnUserNamed(String login,String name) {
         User user = new User();
         user.setLogin(login);
         user.setEmail(login + "@caelum.com.br");
-        user.setName(login);
+        user.setName(name);
         user.setPassword(login);
         session.saveOrUpdate(user);
         session.flush();
+        return this;
+    }
+
+    public GivenContexts thereIsAnUserNamed(String login) {
+    	thereIsAnUserNamed(login, login);
         return this;
     }
 
