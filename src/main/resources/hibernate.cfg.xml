@@ -22,11 +22,13 @@
 		<mapping class="br.com.caelum.calopsita.model.CardType" />
 		<mapping class="br.com.caelum.calopsita.model.User" />
 		<mapping class="br.com.caelum.calopsita.model.Iteration" />
+		<mapping class="br.com.caelum.calopsita.model.ProjectModification" />		
 		
 		<mapping class="br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard" />
 		<mapping class="br.com.caelum.calopsita.plugins.planning.PlanningCard" />
 		<mapping class="br.com.caelum.calopsita.plugins.roi.ValuableCard" />
 		<mapping class="br.com.caelum.calopsita.plugins.lifeCycle.LifeCycledCard" />
 		<mapping class="br.com.caelum.calopsita.plugins.owner.AssignableCard" />
+
 	</session-factory>
 </hibernate-configuration>

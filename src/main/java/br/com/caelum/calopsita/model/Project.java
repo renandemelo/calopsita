@@ -1,6 +1,8 @@
 package br.com.caelum.calopsita.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,8 +15,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import org.hibernate.validator.NotNull;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 import br.com.caelum.calopsita.repository.ProjectRepository;
+import br.com.caelum.calopsita.util.DateTimeGenerator;
+import br.com.caelum.calopsita.util.DateTimeGeneratorImpl;
 
 @Entity
 public class Project implements Identifiable {
@@ -34,6 +40,10 @@ public class Project implements Identifiable {
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Iteration> iterations;
+    
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private List<ProjectModification> modifications = new ArrayList<ProjectModification>();
+
 
     public Project(ProjectRepository repository) {
 		this.repository = repository;
@@ -43,8 +53,14 @@ public class Project implements Identifiable {
 	}
     @Transient
     private ProjectRepository repository;
+    @Transient
+	private DateTimeGenerator dateTimeGenerator;
 
-    private ProjectRepository getRepository() {
+    public void setDateTimeGenerator(DateTimeGenerator dateTimeGenerator) {
+		this.dateTimeGenerator = dateTimeGenerator;
+	}
+
+	private ProjectRepository getRepository() {
     	if (repository == null) {
     		throw new IllegalStateException("Repository was not set. You should inject it first");
     	}
@@ -144,5 +160,45 @@ public class Project implements Identifiable {
     public void setColaborators(List<User> colaborators) {
         this.colaborators = colaborators;
     }
+
+	public void addModification(String string) {		
+		ProjectModification projectModification = new ProjectModification();
+		projectModification.setDescription(string);
+		LocalDateTime now = getNow();
+		projectModification.setDateTime(now);
+		getModifications().add(projectModification);
+				
+		for (ProjectModification modification : getLastModifications()) {
+			System.out.println(modification.getDescription());
+		}
+	}
+
+	private LocalDateTime getNow() {
+		if(dateTimeGenerator == null)
+			dateTimeGenerator = new DateTimeGeneratorImpl();
+		return dateTimeGenerator.getNow();
+	}
+
+	public List<ProjectModification> getLastModifications() {
+		List<ProjectModification> modificationsList = new ArrayList<ProjectModification>(getModifications());
+		Collections.sort(modificationsList,new Comparator<ProjectModification>() {
+		 	public int compare(ProjectModification o1, ProjectModification o2) {
+				return o2.getDateTime().compareTo(o1.getDateTime());
+			};
+		});		
+		if(modificationsList.size()>30) {
+			return modificationsList.subList(0, 30);	
+		}
+		return modificationsList;
+		
+	}
+
+	public void setModifications(List<ProjectModification> modifications) {
+		this.modifications = modifications;
+	}
+
+	public List<ProjectModification> getModifications() {
+		return modifications;
+	}
 
 }

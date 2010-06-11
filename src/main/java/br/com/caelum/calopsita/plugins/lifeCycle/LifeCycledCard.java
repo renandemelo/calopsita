@@ -12,7 +12,6 @@ import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
 
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Event;

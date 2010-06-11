@@ -62,12 +62,15 @@ public class CardsController {
             and(Hibernate.validate(card));
         }});
 		validator.onErrorUse(logic()).forwardTo(CardsController.class).form(card.getProject());
-
-		card.setCreator(currentUser);
-		card.save();
+		
+		card.setCreator(currentUser);		
+		card.save();		
 		if (card.getParent() != null){
 			card.setIteration(card.getParent().load().getIteration());
 		}
+//		Project project = card.getProject().load();
+//		project.addModification("Created card '" + card.getName() + "'");
+//		project.save();
 		card.save();
 		if (gadgets != null) {
 			card.addGadgets(gadgets);

@@ -22,6 +22,7 @@ import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.model.ProjectModification;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.IterationRepository;
@@ -64,6 +65,7 @@ public class CardTest {
 	public void savingACard() throws Exception {
     	Project project = givenAProject();
 		Card card = givenACard();
+		card.setName("Log development");
 
 		shouldSaveOnTheRepositoryTheCard(card);
 
@@ -71,6 +73,8 @@ public class CardTest {
 
 		assertThat(card.getProject(), is(project));
 		assertThat(card.getCreator(), is(currentUser));
+		ProjectModification projectModification = card.getProject().getLastModifications().get(0);
+		assertThat(projectModification.getDescription(), is("Created card 'Log development'"));
 		mockery.assertIsSatisfied();
 	}
 
