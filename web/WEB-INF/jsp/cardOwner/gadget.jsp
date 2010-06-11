@@ -1,6 +1,22 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<script type="text/javascript">
+function confirmAssignCard() {
+    var msg = {};
+    msg['assign'] = {
+        html : 'You already own a card. Would you like to own this card anyway?',
+        buttons : { 'Yes' : true, 'No' : false },
+        submit : function(confirm) {
+            if (confirm) {
+                
+            }
+        }
+    };
+    $.prompt(msg);
+}
+</script>
+
 <c:if test="${not empty gadgetForHtml.card.iteration}">
 	
 	<c:if test="${gadgetForHtml.card.iteration.current}">

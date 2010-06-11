@@ -12,6 +12,7 @@ import javax.persistence.Transient;
 import org.hibernate.validator.Email;
 import org.hibernate.validator.NotNull;
 
+import br.com.caelum.calopsita.plugins.owner.AssignableCard;
 import br.com.caelum.calopsita.repository.UserRepository;
 
 @Entity
@@ -152,5 +153,9 @@ public class User implements Identifiable {
 
 	public void toggleNewbie() {
 		this.newbie = !this.newbie;
+	}
+	
+	public boolean isCardOwner(){
+		return getRepository().isCardOwner(this);
 	}
 }

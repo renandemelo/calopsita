@@ -13,10 +13,11 @@ import org.hibernate.annotations.Parameter;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Event;
 import br.com.caelum.calopsita.model.Gadget;
+import br.com.caelum.calopsita.model.Identifiable;
 import br.com.caelum.calopsita.model.User;
 
 @Entity
-public class AssignableCard implements Gadget {
+public class AssignableCard implements Gadget{
 
 	@Id
 	@GeneratedValue(generator = "custom")
