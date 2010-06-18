@@ -57,5 +57,21 @@ public class CardOwnerStory extends DefaultStory {
 	}
 	
 	
+	@Test
+    public void addingOwnerToASecondAssignableCard() throws Exception {
+		given.thereIsAnUserNamed("adriano","Adriano").and()
+		.thereIsAProjectNamed("Marriage").ownedBy("adriano")
+		.withACurrentIterationWhichGoalIs("Postpone")
+		.withACardNamed("buy cake").planningCard().assignable().ownedBy("adriano").and()
+		.withACardNamed("schedule date").planningCard().assignable().and()		
+		.iAmLoggedInAs("adriano");
+	when.iOpenProjectPageOf("Marriage").and()
+		.iOpenIterationsPage().iOpenThePageOfIterationWithGoal("Postpone").iClickOn("Be an Owner now!");
+	then.appearsConfirmationPopup("assign"); 
+	
+		
+		
+    }
+	
 	
 }

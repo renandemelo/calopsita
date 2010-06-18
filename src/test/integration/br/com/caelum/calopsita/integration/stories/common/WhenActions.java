@@ -48,8 +48,9 @@ public class WhenActions {
 		iClickOn("Logout");
 	}
 
-	public void iClickOn(String link) {
+	public WhenActions iClickOn(String link) {
 		browser.currentPage().clickLink(link);
+		return this;
 	}
 	
 	public WhenActions iClickButton (String button) {

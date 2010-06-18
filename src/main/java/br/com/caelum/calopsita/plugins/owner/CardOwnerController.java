@@ -59,9 +59,8 @@ public class CardOwnerController {
 	@Path("/projects/{card.project.id}/iterations/{card.iteration.id}/card/{card.id}/cardOwner/")
 	@Post
 	public void isAlreadyOwner(Card card, Project project) {
-		List<Card> cardList = repository.listAllCardsFrom(project, sessionUser.getUser());
+		List<Card> cardList = repository.listAllPendingCardsFrom(project, sessionUser.getUser());
 		boolean isAlreadyOwner = cardList.size() > 0; 
-		System.out.println(cardList);
 		result.use(Results.json()).from(isAlreadyOwner).serialize();
 	}
 }

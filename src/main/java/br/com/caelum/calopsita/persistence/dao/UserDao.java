@@ -6,6 +6,7 @@ import org.hibernate.Session;
 
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
+import br.com.caelum.calopsita.model.Card.Status;
 import br.com.caelum.calopsita.plugins.owner.AssignableCard;
 import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.ioc.Component;
@@ -37,7 +38,7 @@ public class UserDao implements UserRepository {
     	List<AssignableCard> cards = this.session.createQuery("from AssignableCard ac where ac.owner = :user")
     			.setParameter("user", user).list();
 		for(AssignableCard card : cards){
-			if(card.getCard().getIteration().isCurrent())
+			if(card.getCard().getIteration().isCurrent() && card.getCard().getStatus() != Status.DONE)
 				return true;
 		}
 		return false;

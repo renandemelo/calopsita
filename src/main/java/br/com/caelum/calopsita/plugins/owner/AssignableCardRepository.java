@@ -8,5 +8,5 @@ import br.com.caelum.calopsita.model.User;
 
 public interface AssignableCardRepository {
 	AssignableCard save(AssignableCard card);
-	List<Card> listAllCardsFrom(Project project, User owner);
+	List<Card> listAllPendingCardsFrom(Project project, User owner);
 }

@@ -375,5 +375,13 @@ public class ThenAsserts {
 		assertThat(div(divName), not(containsText("Be an Owner now!")));
 		return this;
 	}
+
+	public void appearsConfirmationPopup(String operation) {
+		//assertThat(div("main"), containsText("blah"));
+		browser.currentPage().waitUntil(
+				"!$('#jqi_state_" + operation + "').is(':visible')", 2000);
+		assertTrue(browser.currentPage().div("jqi_state_" + operation).exists());
+		//assertTrue(div("jqi_state_" + operation).exists());	
+	}
 	
 }

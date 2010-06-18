@@ -123,5 +123,14 @@ public class CardContexts<T extends ProjectContexts<T>> {
 		session.save(lifeCicledCard);
 		session.flush();
 		return this;
+	}
+
+	public CardContexts<?> ownedBy(String login) {
+		User user = new UserDao(session).find(login);
+		AssignableCard acard = new AssignableCard();
+		acard.setCard(card);
+		acard.setOwner(user);
+		
+		return this;
 	}	
 }
