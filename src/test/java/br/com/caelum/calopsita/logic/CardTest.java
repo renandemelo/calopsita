@@ -11,6 +11,9 @@ import java.util.List;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
+import org.jmock.api.Action;
+import org.jmock.internal.ExpectationBuilder;
+import org.jmock.internal.ExpectationCollector;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -26,6 +29,7 @@ import br.com.caelum.calopsita.model.ProjectModification;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.IterationRepository;
+import br.com.caelum.calopsita.repository.ProjectModificationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.util.test.MockResult;
 import br.com.caelum.vraptor.util.test.MockValidator;
@@ -41,11 +45,13 @@ public class CardTest {
     private Project project;
 	private User currentUser;
 	private MockValidator validator;
+	private ProjectModificationRepository projectModificationsRepository;
 
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
         repository = mockery.mock(CardRepository.class);
+        projectModificationsRepository = mockery.mock(ProjectModificationRepository.class);
 		SessionUser sessionUser = new SessionUser(new MockHttpSession());
         currentUser = new User();
         currentUser.setLogin("me");
@@ -64,6 +70,7 @@ public class CardTest {
     @Test
 	public void savingACard() throws Exception {
     	Project project = givenAProject();
+    	shouldEventuallyLoadTheProject(project);
 		Card card = givenACard();
 		card.setName("Log development");
 
@@ -78,7 +85,23 @@ public class CardTest {
 		mockery.assertIsSatisfied();
 	}
 
-    @Test
+    private void shouldEventuallyLoadTheProject(final Project project) {
+		this.mockery.checking(new Expectations() {
+			{
+				one(projectRepository).load(with(any(Project.class)));
+				will(returnValue(project));
+				
+				exactly(1).of(projectModificationsRepository).add(with(any(ProjectModification.class)));
+				
+				exactly(1).of(projectRepository).listModificationsFrom(project);
+				will(returnValue(new ArrayList()));
+				
+			}
+		});
+	}
+
+
+	@Test
 	public void savingACardWithParentWithIteration() throws Exception {
     	Project project = givenAProject();
 		final Card card = givenACard();
@@ -251,6 +274,7 @@ public class CardTest {
     @Test
 	public void savingACardWithGadgets() throws Exception {
     	Project project = givenAProject();
+    	shouldEventuallyLoadTheProject(project);
 		Card card = givenACard();
 
 		Gadgets prioritization = Gadgets.PRIORITIZATION;
@@ -533,7 +557,7 @@ public class CardTest {
 	}
 
 	private Project givenAProject() {
-		Project project2 = new Project(projectRepository);
+		Project project2 = new Project(projectRepository, projectModificationsRepository);
 		return project2;
 	}
 	
