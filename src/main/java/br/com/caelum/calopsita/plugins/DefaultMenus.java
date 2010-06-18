@@ -42,6 +42,9 @@ public class DefaultMenus {
 				.add(new SubmenuItem("card.subcards", "/projects/" + project.getId() + "/cards/" + card.getId() + "/subcards/"));
 		}
 
+		menu.getOrCreate("modifications")
+		.add(new SubmenuItem("modifications.last", "/projects/" + project.getId() + "/modifications/last/"));
+		
 		menu.getOrCreate("admin")
 			.add(new SubmenuItem("project.edit", "/projects/" + project.getId() + "/edit/"))
 			.add(new SubmenuItem("colaborators", "/projects/" + project.getId() + "/colaborators/"))
