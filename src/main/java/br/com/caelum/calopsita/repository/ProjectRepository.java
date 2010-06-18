@@ -6,6 +6,7 @@ import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.CardType;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.model.ProjectModification;
 import br.com.caelum.calopsita.model.User;
 
 public interface ProjectRepository extends BaseRepository<Project> {
@@ -35,5 +36,7 @@ public interface ProjectRepository extends BaseRepository<Project> {
 	List<Card> listLastAddedCards(Project project);
 
 	List<Card> listAllTodoCardsFrom(Project project);
+
+	List<ProjectModification> listModificationsFrom(Project project);
 
 }

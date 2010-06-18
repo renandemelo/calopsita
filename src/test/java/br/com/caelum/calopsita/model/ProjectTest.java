@@ -1,29 +1,71 @@
 package br.com.caelum.calopsita.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.jmock.Expectations;
+import org.jmock.Mockery;
 import org.joda.time.LocalDateTime;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.calopsita.repository.ProjectModificationRepository;
+import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.util.DateTimeGenerator;
 
 public class ProjectTest {
-		
+	
+	private Mockery mockery;
+	private ProjectRepository repository;
+	private Project project;
+	private ProjectModificationRepository modificationRepository;
+
+	@Before
+    public void setUp() throws Exception {
+        mockery = new Mockery();
+        repository = mockery.mock(ProjectRepository.class);
+        modificationRepository = mockery.mock(ProjectModificationRepository.class);
+        project = new Project(repository, modificationRepository);
+	}
+
+	private void shouldModifyAProjectManyTimes(final int count) {
+		mockery.checking(new Expectations() {
+			{
+				exactly(count).of(modificationRepository).add(with(any(ProjectModification.class)));
+			}
+		});
+	}
+	
+	private void shouldListModifications() {
+		mockery.checking(new Expectations() {
+			{
+				exactly(1).of(repository).listModificationsFrom(project);
+				will(returnValue(new ArrayList()));
+			}
+		});
+	}
+	
+	private void shouldModifyAProject() {
+		shouldModifyAProjectManyTimes(1);
+	}
+	
     @Test
     public void testAddModificationRecordsDescription() throws Exception {
-    	Project project = new Project();
+    	shouldModifyAProject();
+    	shouldListModifications();
     	String description = "New Modification";
-		
     	project.addModification (description);
     	List<ProjectModification> list = project.getLastModifications();
     	
     	Assert.assertEquals(list.get(0).getDescription(), description);
     }
-    
+
     @Test
 	public void testTheDateOfTheModification() throws Exception {
-		Project project = new Project();
+    	shouldModifyAProject();
+    	shouldListModifications();
+    	
 		String description = "New Modification";
 		
 		LocalDateTime date1 = new LocalDateTime();
@@ -38,7 +80,8 @@ public class ProjectTest {
 
     @Test
 	public void testGetLastModificationsReturns30Elements() throws Exception {
-		Project project = new Project();
+    	shouldModifyAProjectManyTimes(31);
+    	shouldListModifications();
 		String firstDescription = "First Modification";
 		String description = "Generic Modification";
 		project.addModification(firstDescription);
@@ -61,15 +104,6 @@ public class ProjectTest {
 			Assert.assertEquals(description,projectModification.getDescription());
 		}
 	}
-
-//    @Test
-//	public void testTheDateOfTheModification() throws Exception {
-//		Project project = new Project();
-//		String string = "New Modification";		
-//		LocalDate date = new LocalDate();
-//		project.addModification(string);
-//		
-//		Assert.assertEquals(project.getLastModifications().get(0).getDate(), date);
-//	}
+    
     
 }

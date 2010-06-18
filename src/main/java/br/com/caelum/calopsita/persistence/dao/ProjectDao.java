@@ -13,6 +13,7 @@ import br.com.caelum.calopsita.model.FromProject;
 import br.com.caelum.calopsita.model.Identifiable;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.model.ProjectModification;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.plugins.PluginResultTransformer;
 import br.com.caelum.calopsita.repository.ProjectRepository;
@@ -154,5 +155,13 @@ public class ProjectDao implements ProjectRepository {
 				.setParameter("project", project)
 				.setParameter("today", new LocalDate())
 				.setResultTransformer(transformer).list();
+	}
+
+	@Override
+	public List<ProjectModification> listModificationsFrom(Project project) {
+		return this.session.createQuery("from ProjectModification i where i.project = :project")
+        .setParameter("project", project)
+        .setResultTransformer(transformer)
+        .list();
 	}
 }

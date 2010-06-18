@@ -11,6 +11,9 @@ import java.util.List;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
+import org.jmock.api.Action;
+import org.jmock.internal.ExpectationBuilder;
+import org.jmock.internal.ExpectationCollector;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -68,6 +71,7 @@ public class CardTest {
 		card.setName("Log development");
 
 		shouldSaveOnTheRepositoryTheCard(card);
+		shouldEventuallyLoadTheProject(project);
 
 		whenISaveTheCard(card, onThe(project));
 
@@ -78,7 +82,17 @@ public class CardTest {
 		mockery.assertIsSatisfied();
 	}
 
-    @Test
+    private void shouldEventuallyLoadTheProject(final Project project) {
+		this.mockery.checking(new Expectations() {
+			{
+				one(projectRepository).load(project);
+				will(returnValue(project));
+			}
+		});
+	}
+
+
+	@Test
 	public void savingACardWithParentWithIteration() throws Exception {
     	Project project = givenAProject();
 		final Card card = givenACard();

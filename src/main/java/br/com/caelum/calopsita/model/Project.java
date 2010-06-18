@@ -18,6 +18,8 @@ import org.hibernate.validator.NotNull;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
+import br.com.caelum.calopsita.persistence.dao.ProjectModificationDao;
+import br.com.caelum.calopsita.repository.ProjectModificationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.util.DateTimeGenerator;
 import br.com.caelum.calopsita.util.DateTimeGeneratorImpl;
@@ -42,9 +44,13 @@ public class Project implements Identifiable {
     private List<Iteration> iterations;
     
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private List<ProjectModification> modifications = new ArrayList<ProjectModification>();
-
-
+    private List<ProjectModification> modifications;
+    
+    public Project(ProjectRepository repository, ProjectModificationRepository modificationRepository) {
+    	this.repository = repository;
+    	this.modificationRepository = modificationRepository;
+    }
+    
     public Project(ProjectRepository repository) {
 		this.repository = repository;
 	}
@@ -55,6 +61,8 @@ public class Project implements Identifiable {
     private ProjectRepository repository;
     @Transient
 	private DateTimeGenerator dateTimeGenerator;
+    @Transient
+    private ProjectModificationRepository modificationRepository;
 
     public void setDateTimeGenerator(DateTimeGenerator dateTimeGenerator) {
 		this.dateTimeGenerator = dateTimeGenerator;
@@ -117,6 +125,11 @@ public class Project implements Identifiable {
     public void save() {
     	getRepository().add(this);
     }
+    
+    public void update() {
+    	getRepository().update(this);
+    }
+    
     public Long getId() {
         return id;
     }
@@ -162,15 +175,12 @@ public class Project implements Identifiable {
     }
 
 	public void addModification(String string) {		
-		ProjectModification projectModification = new ProjectModification();
+		ProjectModification projectModification = new ProjectModification(this.modificationRepository, this);
 		projectModification.setDescription(string);
 		LocalDateTime now = getNow();
 		projectModification.setDateTime(now);
-		getModifications().add(projectModification);
-				
-		for (ProjectModification modification : getLastModifications()) {
-			System.out.println(modification.getDescription());
-		}
+		projectModification.save();
+		this.getModifications().add(projectModification);
 	}
 
 	private LocalDateTime getNow() {
@@ -198,7 +208,18 @@ public class Project implements Identifiable {
 	}
 
 	public List<ProjectModification> getModifications() {
+		if (modifications == null) {
+			modifications = getRepository().listModificationsFrom(this);
+    	}
 		return modifications;
+	}
+
+	public void setModificationRepository(ProjectModificationRepository modificationRepository) {
+		this.modificationRepository = modificationRepository;
+	}
+
+	public ProjectModificationRepository getModificationRepository() {
+		return modificationRepository;
 	}
 
 }
