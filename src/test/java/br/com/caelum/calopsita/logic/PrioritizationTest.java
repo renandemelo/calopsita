@@ -3,6 +3,7 @@ package br.com.caelum.calopsita.logic;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.jmock.Expectations;
@@ -11,9 +12,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.model.ProjectModification;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizationController;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizationRepository;
+import br.com.caelum.calopsita.repository.ProjectModificationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.util.test.MockResult;
 
@@ -23,6 +26,7 @@ public class PrioritizationTest {
 	private PrioritizationRepository repository;
 	private ProjectRepository projectRepository;
 	private Project project;
+	private ProjectModificationRepository modificationRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -30,7 +34,8 @@ public class PrioritizationTest {
         repository = mockery.mock(PrioritizationRepository.class);
 
 		projectRepository = mockery.mock(ProjectRepository.class);
-		project = new Project(projectRepository);
+		modificationRepository = mockery.mock(ProjectModificationRepository.class);
+		project = new Project(projectRepository, modificationRepository);
 		logic = new PrioritizationController(new MockResult(), repository);
 
 		mockery.checking(new Expectations() {
@@ -39,6 +44,10 @@ public class PrioritizationTest {
 				will(returnValue(project));
 
 				ignoring(repository).listCards(project);
+				
+				allowing(modificationRepository).add(with(any(ProjectModification.class)));
+				
+				allowing(projectRepository).listModificationsFrom(project);
 			}
 		});
     }

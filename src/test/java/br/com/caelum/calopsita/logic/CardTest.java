@@ -75,6 +75,7 @@ public class CardTest {
 		card.setName("Log development");
 
 		shouldSaveOnTheRepositoryTheCard(card);
+		shouldSaveModificationOnRepository("Created card 'Log development'");
 
 		whenISaveTheCard(card, onThe(project));
 
@@ -85,10 +86,18 @@ public class CardTest {
 		mockery.assertIsSatisfied();
 	}
 
-    private void shouldEventuallyLoadTheProject(final Project project) {
+    private void shouldSaveModificationOnRepository(String description) {
+    	this.mockery.checking(new Expectations() {
+    		{
+				exactly(1).of(projectModificationsRepository).add(with(any(ProjectModification.class)));
+			}});
+	}
+
+
+	private void shouldEventuallyLoadTheProject(final Project project) {
 		this.mockery.checking(new Expectations() {
 			{
-				one(projectRepository).load(with(any(Project.class)));
+				exactly(1).of(projectRepository).load(with(any(Project.class)));
 				will(returnValue(project));
 				
 				exactly(1).of(projectModificationsRepository).add(with(any(ProjectModification.class)));
@@ -276,11 +285,13 @@ public class CardTest {
     	Project project = givenAProject();
     	shouldEventuallyLoadTheProject(project);
 		Card card = givenACard();
+		card.setName("Log development");
 
 		Gadgets prioritization = Gadgets.PRIORITIZATION;
 
 		shouldSaveOnTheRepositoryTheCard(card);
 		shouldSaveAGadgetOfType(prioritization);
+		shouldSaveModificationOnRepository("Created card 'Log development'");
 
 		whenISaveTheCard(card, onThe(project), withGadgets(prioritization));
 

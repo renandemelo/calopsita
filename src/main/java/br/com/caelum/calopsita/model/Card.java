@@ -55,7 +55,7 @@ public class Card implements Identifiable, FromProject {
 
 	@Transient
 	private CardRepository repository;
-
+	
 	public Card(CardRepository repository) {
 		this.repository = repository;
 	}
@@ -130,6 +130,7 @@ public class Card implements Identifiable, FromProject {
 	}
 
 	public void save() {
+		this.project.addModification("Created card '" + this.getName() + "'");
 		getRepository().add(this);
 	}
 
