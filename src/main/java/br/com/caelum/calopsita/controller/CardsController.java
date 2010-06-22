@@ -69,7 +69,6 @@ public class CardsController {
 			card.setIteration(card.getParent().load().getIteration());
 		}
 		Project project = card.getProject().load();
-		project.addModification("Created card '" + card.getName() + "'");
 		card.save();
 		if (gadgets != null) {
 			card.addGadgets(gadgets);
