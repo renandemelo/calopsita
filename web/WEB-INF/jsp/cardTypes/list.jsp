@@ -1,16 +1,28 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
 
+<script type="text/javascript" src="<c:url value="/javascript/project-cards.js"/>"></script>
+
 <page:applyDecorator name="admin">
 	<div id="cardTypesList">
 	<ul id="cardTypes" class="pretty">
 		<c:forEach items="${cardTypeList}" var="type">
-			<li>${type.name }
+		<div id="cardType_${type.name }">
+		<li class="story card" name="${type.name }" id="cardType_${type.id}"  >		
+				<span class="name" onclick="toggleDescription(this.parentNode);"> 
+					${type.name }
+				</span>
+				<c:forEach items="${type.gadgets}" var="gadget"
+				varStatus="s">
+				<div class="description"><pre>${gadget }</pre></div>
+				
+				</c:forEach>
 			<div class="action" id="${type.name }"><a
 				class="ui-icon ui-icon-pencil" name="edit ${type.name }"
 				title="<fmt:message key="edit"/>"
 				href="<c:url value="/projects/${type.project.id}/cardTypes/${type.id}/"/>"></a>			
 			</div>
 			</li>
+			</div>
 		</c:forEach>
 	</ul>
 	</div>

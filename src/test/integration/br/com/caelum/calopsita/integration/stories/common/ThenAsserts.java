@@ -391,5 +391,12 @@ public class ThenAsserts {
 		//assertTrue(browser.currentPage().div("jqi_state_" + operation).exists());
 		//assertTrue(div("jqi_state_" + operation).exists());	
 	}
+
+	public void theCardTypeGadgetIsListed(String cardType, Gadgets gadgets) {
+		assertThat(div("cardType_"+cardType), containsText(gadgets.name()));
+		
+	}
+
+	
 	
 }
