@@ -89,7 +89,7 @@ public class CardTest {
     private void shouldSaveModificationOnRepository(String description) {
     	this.mockery.checking(new Expectations() {
     		{
-				exactly(1).of(projectModificationsRepository).add(with(any(ProjectModification.class)));
+    			allowing(projectModificationsRepository).add(with(any(ProjectModification.class)));
 			}});
 	}
 
@@ -97,12 +97,12 @@ public class CardTest {
 	private void shouldEventuallyLoadTheProject(final Project project) {
 		this.mockery.checking(new Expectations() {
 			{
-				exactly(1).of(projectRepository).load(with(any(Project.class)));
+				allowing(projectRepository).load(with(any(Project.class)));
 				will(returnValue(project));
 				
-				exactly(1).of(projectModificationsRepository).add(with(any(ProjectModification.class)));
+				allowing(projectModificationsRepository).add(with(any(ProjectModification.class)));
 				
-				exactly(1).of(projectRepository).listModificationsFrom(project);
+				allowing(projectRepository).listModificationsFrom(project);
 				will(returnValue(new ArrayList()));
 				
 			}

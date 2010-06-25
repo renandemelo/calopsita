@@ -9,6 +9,7 @@ import java.util.List;
 
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.model.ProjectModification;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
@@ -88,7 +89,9 @@ public class ProjectsController {
     @Path("/projects/{project.id}/colaborators/") @Post
     public void addColaborator(Project project, User colaborator) {
         Project loaded = project.load();
+        colaborator = colaborator.load();
         loaded.getColaborators().add(colaborator);
+        loaded.addModification("Colaborator '" + colaborator.getName() + "' added");
         result.use(logic()).redirectTo(ProjectsController.class).listColaborators(project);
     }
 }
