@@ -40,11 +40,7 @@ public class IterationTest {
     private ProjectRepository projectRepository;
 	private User currentUser;
 	private UserRepository userRepository;
-<<<<<<< HEAD:src/test/java/br/com/caelum/calopsita/logic/IterationTest.java
-	private ProjectModificationRepository modificationRepository;
-=======
 	private ProjectModificationRepository projectModificationRepository;
->>>>>>> 955b9323d9d895a6b4ebd78e03e53f591458823a:src/test/java/br/com/caelum/calopsita/logic/IterationTest.java
 
     @Before
     public void setUp() throws Exception {
@@ -53,19 +49,15 @@ public class IterationTest {
         cardRepository = mockery.mock(CardRepository.class);
         projectRepository = mockery.mock(ProjectRepository.class);
         userRepository = mockery.mock(UserRepository.class);
-<<<<<<< HEAD:src/test/java/br/com/caelum/calopsita/logic/IterationTest.java
-        modificationRepository = mockery.mock(ProjectModificationRepository.class);
+        projectModificationRepository = mockery.mock(ProjectModificationRepository.class);
 
         currentUser = new User(userRepository);
         currentUser.setLogin("me");
-        project = new Project(projectRepository, modificationRepository);
-=======
         projectModificationRepository = mockery.mock(ProjectModificationRepository.class);
 
         currentUser = new User(userRepository);
         currentUser.setLogin("me");
         project = new Project(projectRepository, projectModificationRepository);
->>>>>>> 955b9323d9d895a6b4ebd78e03e53f591458823a:src/test/java/br/com/caelum/calopsita/logic/IterationTest.java
 
         SessionUser sessionUser = new SessionUser(new MockHttpSession());
         sessionUser.setUser(currentUser);
@@ -322,7 +314,7 @@ public class IterationTest {
 
 
 	private Project givenAProject() {
-		return new Project(projectRepository, modificationRepository);
+		return new Project(projectRepository, projectModificationRepository);
 	}
 
 
