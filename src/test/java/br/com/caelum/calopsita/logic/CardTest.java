@@ -46,6 +46,7 @@ public class CardTest {
 	private User currentUser;
 	private MockValidator validator;
 	private ProjectModificationRepository projectModificationsRepository;
+	private ProjectModificationRepository modificationRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -58,7 +59,7 @@ public class CardTest {
         sessionUser.setUser(currentUser);
 
 		projectRepository = mockery.mock(ProjectRepository.class);
-		project = new Project(projectRepository);
+		project = new Project(projectRepository, modificationRepository);
 
 		iterationRepository = mockery.mock(IterationRepository.class);
 		

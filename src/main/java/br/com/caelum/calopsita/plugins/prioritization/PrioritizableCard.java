@@ -51,6 +51,7 @@ public class PrioritizableCard implements Gadget {
 	}
 
 	public void setPriority(int priority) {
+		this.card.getProject().addModification("Changed card " + card.getId() + " priority from " + this.priority + " to " + priority);
 		this.priority = priority;
 	}
 

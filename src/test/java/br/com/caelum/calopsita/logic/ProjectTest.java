@@ -19,6 +19,7 @@ import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.mocks.MockHttpSession;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
+import br.com.caelum.calopsita.repository.ProjectModificationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.util.test.MockResult;
@@ -31,12 +32,14 @@ public class ProjectTest {
     private ProjectRepository repository;
 	private User currentUser;
 	private UserRepository userRepository;
+	private ProjectModificationRepository modificationRepository;
 
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
         repository = mockery.mock(ProjectRepository.class);
         userRepository = mockery.mock(UserRepository.class);
+        modificationRepository = mockery.mock(ProjectModificationRepository.class);
         currentUser = currentUser();
 
 		SessionUser sessionUser = new SessionUser(new MockHttpSession());
@@ -143,7 +146,7 @@ public class ProjectTest {
 
 	private Project givenProjectIsOwnedBy(final Project project, final User user) {
 
-		final Project result = new Project(repository);
+		final Project result = new Project(repository, modificationRepository);
 		result.setOwner(user);
 		mockery.checking(new Expectations() {
 			{
@@ -203,7 +206,7 @@ public class ProjectTest {
 	}
 
 	private Project givenAProject() {
-		Project project = new Project(repository);
+		Project project = new Project(repository, modificationRepository);
 		project.setName("A project");
 		return project;
 	}
@@ -219,7 +222,7 @@ public class ProjectTest {
     }
 
     private Project givenThatOnlyExistsOneProjectForCurrentUser() {
-        final Project project = new Project(repository);
+        final Project project = new Project(repository, modificationRepository);
         mockery.checking(new Expectations() {
             {
                 one(userRepository).listAllFrom(currentUser);

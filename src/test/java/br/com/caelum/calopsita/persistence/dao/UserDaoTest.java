@@ -61,27 +61,27 @@ public class UserDaoTest extends AbstractDaoTest {
 
 		assertThat(list, not(hasItem(hasSameId(project))));
 	}
-	
+
 	@Test
 	public void userOwnsACardInCurrentIteration() throws Exception {
 		User juju = givenAUserNamed("Juju");
 		givenAnAssignableCardWithOwnerInCurrentIteration(juju);
-		
+
 		assertTrue(dao.isCardOwner(juju));
 	}
-	
+
 	@Test
 	public void userOwnsACardNotInCurrentIteration() throws Exception {
 		User juju = givenAUserNamed("Juju");
 		givenAnAssignableCardWithOwnerNotInCurrentIteration(juju);
-		
+
 		assertFalse(dao.isCardOwner(juju));
 	}
-	
+
 	@Test
 	public void userDoesntOwnACard() throws Exception {
 		User juju = givenAUserNamed("Juju");
-		
+
 		assertFalse(dao.isCardOwner(juju));
 	}
 
@@ -114,7 +114,7 @@ public class UserDaoTest extends AbstractDaoTest {
 		session.flush();
 		return user;
 	}
-	
+
 	private Project givenAProjectOwnedBy(User user) {
 		Project project = givenAProject();
 		project.setOwner(user);
@@ -124,18 +124,27 @@ public class UserDaoTest extends AbstractDaoTest {
 	}
 
 	private Project givenAProject() {
-		Project project = new Project(new ProjectDao(session, new PluginResultTransformer(session, new ArrayList<Transformer>())));
+		Project project = new Project(new ProjectDao(session,
+				new PluginResultTransformer(session,
+						new ArrayList<Transformer>())),
+				new ProjectModificationDao(session,
+						new PluginResultTransformer(session,
+								new ArrayList<Transformer>())));
 		project.setName("Tuba");
 		session.save(project);
 		session.flush();
 		return project;
 	}
-	
-	private AssignableCard givenAnAssignableCardWithOwnerInCurrentIteration(User owner){
+
+	private AssignableCard givenAnAssignableCardWithOwnerInCurrentIteration(
+			User owner) {
 		AssignableCard ac = new AssignableCard();
-		Card card = new Card(new CardDao(session, new PluginResultTransformer(session, new ArrayList<Transformer>())));
+		Card card = new Card(new CardDao(session, new PluginResultTransformer(
+				session, new ArrayList<Transformer>())));
 		session.save(card);
-		Iteration currentIteration = new Iteration(new IterationDao(session, new PluginResultTransformer(session, new ArrayList<Transformer>())));
+		Iteration currentIteration = new Iteration(new IterationDao(session,
+				new PluginResultTransformer(session,
+						new ArrayList<Transformer>())));
 		currentIteration.setStartDate(new LocalDate().minusDays(1));
 		currentIteration.setEndDate(new LocalDate().plusDays(1));
 		session.save(currentIteration);
@@ -147,11 +156,15 @@ public class UserDaoTest extends AbstractDaoTest {
 		return ac;
 	}
 
-	private AssignableCard givenAnAssignableCardWithOwnerNotInCurrentIteration(User owner){
+	private AssignableCard givenAnAssignableCardWithOwnerNotInCurrentIteration(
+			User owner) {
 		AssignableCard ac = new AssignableCard();
-		Card card = new Card(new CardDao(session, new PluginResultTransformer(session, new ArrayList<Transformer>())));
+		Card card = new Card(new CardDao(session, new PluginResultTransformer(
+				session, new ArrayList<Transformer>())));
 		session.save(card);
-		Iteration currentIteration = new Iteration(new IterationDao(session, new PluginResultTransformer(session, new ArrayList<Transformer>())));
+		Iteration currentIteration = new Iteration(new IterationDao(session,
+				new PluginResultTransformer(session,
+						new ArrayList<Transformer>())));
 		currentIteration.setStartDate(new LocalDate().minusDays(3));
 		currentIteration.setEndDate(new LocalDate().minusDays(2));
 		session.save(currentIteration);
@@ -162,5 +175,5 @@ public class UserDaoTest extends AbstractDaoTest {
 		session.flush();
 		return ac;
 	}
-	
+
 }

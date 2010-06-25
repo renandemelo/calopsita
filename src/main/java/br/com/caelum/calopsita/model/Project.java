@@ -51,9 +51,9 @@ public class Project implements Identifiable {
     	this.modificationRepository = modificationRepository;
     }
     
-    public Project(ProjectRepository repository) {
-		this.repository = repository;
-	}
+//    public Project(ProjectRepository repository) {
+//		this.repository = repository;
+//	}
 
     public Project() {
 	}

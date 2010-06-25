@@ -39,6 +39,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 	private CardDao cardDao;
 	private UserDao userDao;
 	private Session mockSession;
+	private ProjectModificationDao modificationDao;
 
 	@Override
 	@Before
@@ -47,6 +48,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 		List<Transformer> transformers = Arrays.<Transformer>asList(new OrderByPriorityTransformer());
 		PluginResultTransformer transformer = new PluginResultTransformer(session, transformers);
 		dao = new ProjectDao(session, transformer);
+		modificationDao = new ProjectModificationDao(session, transformer);
 		iterationDao = new IterationDao(session, transformer);
 		cardDao = new CardDao(session,transformer);
 		userDao = new UserDao(session);
@@ -123,7 +125,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 
 		session.evict(project);
 
-		Project project2 = new Project(dao);
+		Project project2 = new Project(dao, modificationDao);
 		project2.setId(project.getId());
 		project2.refresh();
 
@@ -256,7 +258,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 	@Test(expected=IllegalArgumentException.class)
 	public void iterationWithoutProjectIdThrowsException() throws Exception {
 		Iteration projectWithoutId = new Iteration(iterationDao);
-		projectWithoutId.setProject(new Project(dao));
+		projectWithoutId.setProject(new Project(dao, modificationDao));
 
 		dao.hasInconsistentValues(new Object[] {projectWithoutId}, givenAUser());
 	}
@@ -569,7 +571,7 @@ public class ProjectDaoTest extends AbstractDaoTest {
 	}
 
 	private Project givenAProject() {
-		Project project = new Project(dao);
+		Project project = new Project(dao, modificationDao);
 		project.setName("Tuba");
 		session.save(project);
 		session.flush();

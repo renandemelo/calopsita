@@ -34,7 +34,7 @@ public class PrioritizationDaoTest extends AbstractDaoTest{
 		dao = new PrioritizationDao(session);
 		PluginResultTransformer transformer = new PluginResultTransformer(session, Collections.<Transformer>emptyList());
 		
-		project = new Project(new ProjectDao(session, transformer));
+		project = new Project(new ProjectDao(session, transformer), new ProjectModificationDao(session, transformer));
 		project.setName("A Project");
 		cardDao = new CardDao(session, transformer);
 		session.save(project);

@@ -25,6 +25,7 @@ import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.model.Card.Status;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.IterationRepository;
+import br.com.caelum.calopsita.repository.ProjectModificationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.util.test.MockResult;
@@ -41,6 +42,7 @@ public class EventProcessingTest {
 	private User currentUser;
 	private UserRepository userRepository;
 	private Gadget gadget;
+	private ProjectModificationRepository modificationRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -49,12 +51,13 @@ public class EventProcessingTest {
         cardRepository = mockery.mock(CardRepository.class);
         projectRepository = mockery.mock(ProjectRepository.class);
         userRepository = mockery.mock(UserRepository.class);
+        modificationRepository = mockery.mock(ProjectModificationRepository.class);
         gadget = mockery.mock(Gadget.class);
         
         
         currentUser = new User(userRepository);
         currentUser.setLogin("me");
-        project = new Project(projectRepository);
+        project = new Project(projectRepository, modificationRepository);
 
         SessionUser sessionUser = new SessionUser(new MockHttpSession());
         sessionUser.setUser(currentUser);

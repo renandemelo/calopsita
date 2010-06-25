@@ -21,6 +21,7 @@ import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.IterationRepository;
+import br.com.caelum.calopsita.repository.ProjectModificationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.util.test.MockResult;
@@ -37,6 +38,7 @@ public class IterationTest {
     private ProjectRepository projectRepository;
 	private User currentUser;
 	private UserRepository userRepository;
+	private ProjectModificationRepository modificationRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -45,10 +47,11 @@ public class IterationTest {
         cardRepository = mockery.mock(CardRepository.class);
         projectRepository = mockery.mock(ProjectRepository.class);
         userRepository = mockery.mock(UserRepository.class);
+        modificationRepository = mockery.mock(ProjectModificationRepository.class);
 
         currentUser = new User(userRepository);
         currentUser.setLogin("me");
-        project = new Project(projectRepository);
+        project = new Project(projectRepository, modificationRepository);
 
         SessionUser sessionUser = new SessionUser(new MockHttpSession());
         sessionUser.setUser(currentUser);
@@ -305,7 +308,7 @@ public class IterationTest {
 
 
 	private Project givenAProject() {
-		return new Project(projectRepository);
+		return new Project(projectRepository, modificationRepository);
 	}
 
 

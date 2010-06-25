@@ -18,6 +18,7 @@ import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.mocks.MockHttpSession;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.ProjectModification;
+import br.com.caelum.calopsita.repository.ProjectModificationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.util.test.MockResult;
@@ -28,11 +29,13 @@ public class ProjectModificationTest {
 	
 	private Mockery mockery;
 	private ProjectRepository repository;
+	private ProjectModificationRepository modificationRepository;
 
 	@Before
 	public void prepareMocks(){
 		mockery = new Mockery();
         repository = mockery.mock(ProjectRepository.class);
+        modificationRepository = mockery.mock(ProjectModificationRepository.class);
 	}
 	
 	
@@ -75,7 +78,7 @@ public class ProjectModificationTest {
 	}
 
 	private Project createProject(ProjectRepository repository, long id, String name) {
-		final Project loadedProject = new Project(repository);
+		final Project loadedProject = new Project(repository, modificationRepository);
 		loadedProject.setId(id);
 		loadedProject.setName(name);
 		return loadedProject;

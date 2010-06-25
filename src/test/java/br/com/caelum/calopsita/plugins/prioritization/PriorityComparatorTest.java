@@ -3,6 +3,7 @@ package br.com.caelum.calopsita.plugins.prioritization;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -13,18 +14,34 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.model.Card;
+import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.model.ProjectModification;
+import br.com.caelum.calopsita.persistence.dao.ProjectModificationDao;
 import br.com.caelum.calopsita.repository.CardRepository;
+import br.com.caelum.calopsita.repository.ProjectModificationRepository;
+import br.com.caelum.calopsita.repository.ProjectRepository;
 
 public class PriorityComparatorTest {
 
 
 	private Mockery mockery;
 	private CardRepository repository;
+	private ProjectModificationRepository modificationRepository;
+	private ProjectRepository projectRepository;
 
 	@Before
 	public void setUp() throws Exception {
 		mockery = new Mockery();
 		repository = mockery.mock(CardRepository.class);
+		projectRepository = mockery.mock(ProjectRepository.class);
+		modificationRepository = mockery.mock(ProjectModificationRepository.class);
+		mockery.checking(new Expectations() {
+			{
+				allowing(modificationRepository).add(with(any(ProjectModification.class)));
+				allowing(projectRepository).listModificationsFrom(with(any(Project.class)));
+				will(returnValue(new ArrayList<ProjectModification>()));
+			}
+		});
 	}
 
 	@Test
@@ -120,6 +137,8 @@ public class PriorityComparatorTest {
 	}
 
 	private Card givenACard() {
-		return new Card(repository);
+		Card card = new Card(repository);
+		card.setProject(new Project(this.projectRepository, this.modificationRepository));
+		return card;
 	}
 }

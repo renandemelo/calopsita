@@ -31,12 +31,16 @@ import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 public class CardDaoTest extends AbstractDaoTest {
 	private CardDao dao;
 	private Session mockSession;
+	private ProjectDao projectDao;
+	private ProjectModificationDao modificationDao;
 
 	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		dao = new CardDao(session, new PluginResultTransformer(session, Arrays.<Transformer>asList(new OrderByPriorityTransformer())));
+		projectDao = new ProjectDao(session, new PluginResultTransformer(session, new ArrayList<Transformer>()));
+		modificationDao = new ProjectModificationDao(session, new PluginResultTransformer(session, new ArrayList<Transformer>()));
 	}
 
 	@Test
@@ -186,7 +190,7 @@ public class CardDaoTest extends AbstractDaoTest {
 	}
 
 	private Project givenAProject() {
-		Project project = new Project();
+		Project project = new Project(projectDao, modificationDao);
 		project.setName("A project");
 		session.save(project);
 		session.flush();

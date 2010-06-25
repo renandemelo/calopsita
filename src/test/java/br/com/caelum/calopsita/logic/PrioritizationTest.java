@@ -11,11 +11,13 @@ import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.ProjectModification;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizationController;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizationRepository;
+import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.ProjectModificationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.util.test.MockResult;
@@ -66,18 +68,20 @@ public class PrioritizationTest {
 
 	}
 	private PrioritizableCard shouldLoadFromRepository(final PrioritizableCard card) {
-		final PrioritizableCard loaded = new PrioritizableCard();
 		mockery.checking(new Expectations() {
 			{
 				one(repository).load(card);
-				will(returnValue(loaded));
+				will(returnValue(card));
 			}
 		});
-		return loaded;
+		return card;
 	}
 
 	private PrioritizableCard givenACard(int priority) {
 		PrioritizableCard card = new PrioritizableCard();
+		Card card2 = new Card();
+		card2.setProject(project);
+		card.setCard(card2);
 		card.setPriority(priority);
 		return card;
 	}
