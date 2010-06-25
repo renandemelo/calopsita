@@ -53,10 +53,6 @@ public class IterationTest {
 
         currentUser = new User(userRepository);
         currentUser.setLogin("me");
-        projectModificationRepository = mockery.mock(ProjectModificationRepository.class);
-
-        currentUser = new User(userRepository);
-        currentUser.setLogin("me");
         project = new Project(projectRepository, projectModificationRepository);
 
         SessionUser sessionUser = new SessionUser(new MockHttpSession());
