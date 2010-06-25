@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,7 +19,9 @@ import br.com.caelum.calopsita.controller.ProjectsController;
 import br.com.caelum.calopsita.infra.vraptor.SessionUser;
 import br.com.caelum.calopsita.mocks.MockHttpSession;
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.model.ProjectModification;
 import br.com.caelum.calopsita.model.User;
+import br.com.caelum.calopsita.persistence.dao.ProjectModificationDao;
 import br.com.caelum.calopsita.repository.ProjectModificationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
@@ -32,14 +35,14 @@ public class ProjectTest {
     private ProjectRepository repository;
 	private User currentUser;
 	private UserRepository userRepository;
-	private ProjectModificationRepository modificationRepository;
+	private ProjectModificationRepository projectModificationRepository;
 
     @Before
     public void setUp() throws Exception {
         mockery = new Mockery();
         repository = mockery.mock(ProjectRepository.class);
         userRepository = mockery.mock(UserRepository.class);
-        modificationRepository = mockery.mock(ProjectModificationRepository.class);
+        projectModificationRepository = mockery.mock(ProjectModificationRepository.class);
         currentUser = currentUser();
 
 		SessionUser sessionUser = new SessionUser(new MockHttpSession());
@@ -74,14 +77,29 @@ public class ProjectTest {
     	User user = givenAUser();
 
     	shouldReloadAndUpdateTheProject(project);
-
+    	shouldLoadColaborator(user);
     	whenIAddTheUserToTheProject(user, project);
 
     	thenTheProjectWillContainTheUserAsColaborator(project, user);
     	mockery.assertIsSatisfied();
     }
 
-    @Test
+    private void shouldLoadColaborator(final User user) {
+    	mockery.checking(new Expectations() {
+			{
+				one(userRepository).find(user.getLogin());
+				will(returnValue(user));
+				
+				allowing(projectModificationRepository).add(with(any(ProjectModification.class)));
+				
+				allowing(repository).listModificationsFrom(with(any(Project.class)));
+				will(returnValue(new ArrayList<ProjectModification>()));
+			}
+		});
+	}
+
+
+	@Test
 	public void removingAProjectOwnedByMe() throws Exception {
 		Project project = givenAProject();
 
@@ -146,7 +164,7 @@ public class ProjectTest {
 
 	private Project givenProjectIsOwnedBy(final Project project, final User user) {
 
-		final Project result = new Project(repository, modificationRepository);
+		final Project result = new Project(repository, projectModificationRepository);
 		result.setOwner(user);
 		mockery.checking(new Expectations() {
 			{
@@ -206,7 +224,7 @@ public class ProjectTest {
 	}
 
 	private Project givenAProject() {
-		Project project = new Project(repository, modificationRepository);
+		Project project = new Project(repository, projectModificationRepository);
 		project.setName("A project");
 		return project;
 	}
@@ -222,7 +240,7 @@ public class ProjectTest {
     }
 
     private Project givenThatOnlyExistsOneProjectForCurrentUser() {
-        final Project project = new Project(repository, modificationRepository);
+        final Project project = new Project(repository, projectModificationRepository);
         mockery.checking(new Expectations() {
             {
                 one(userRepository).listAllFrom(currentUser);

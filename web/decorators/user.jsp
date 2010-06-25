@@ -8,7 +8,7 @@
 	
 			<decorator:head />
 		</head>
-		
+		 
 		<body>
 			
 			<hr class="separador"/>

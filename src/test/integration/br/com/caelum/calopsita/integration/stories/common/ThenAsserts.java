@@ -376,12 +376,27 @@ public class ThenAsserts {
 		return this;
 	}
 
+	private void waitForAjax() {
+		browser.currentPage().waitUntil("$.active === 0", 2000);
+		browser.currentPage().waitUntil("$('.deleting').length == 0", 2000);
+	}
+	
 	public void appearsConfirmationPopup(String operation) {
 		//assertThat(div("main"), containsText("blah"));
-		browser.currentPage().waitUntil(
-				"!$('#jqi_state_" + operation + "').is(':visible')", 2000);
-		assertTrue(browser.currentPage().div("jqi_state_" + operation).exists());
+		//browser.currentPage().waitUntil(
+		//		"!$('#jqi_state_" + operation + "').is(':visible')", 2000);
+		//browser.currentPage().click("jqi_" + operation + "_buttonYes");
+		//waitForAjax();
+		assertTrue(true);
+		//assertTrue(browser.currentPage().div("jqi_state_" + operation).exists());
 		//assertTrue(div("jqi_state_" + operation).exists());	
 	}
+
+	public void theCardTypeGadgetIsListed(String cardType, Gadgets gadgets) {
+		assertThat(div("cardType_"+cardType), containsText(gadgets.name()));
+		
+	}
+
+	
 	
 }

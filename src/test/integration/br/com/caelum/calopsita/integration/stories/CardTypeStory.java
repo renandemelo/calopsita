@@ -82,4 +82,20 @@ public class CardTypeStory extends DefaultStory {
 		.saveEditedCardType();
 		then.thereIsSuccessMessage("Card type was succesfully edited");
 	}
+	
+	@Test
+	public void listDetailsOnACardType() {
+		given.thereIsAnUserNamed("kung").and()
+			.thereIsAProjectNamed("CuKung'er").ownedBy("kung")
+				.withACardTypeNamed("Story")
+					.withGadgets(Gadgets.PLANNING).and()
+			.iAmLoggedInAs("kung");
+		when.iOpenProjectPageOf("CuKung'er").and()
+		.iOpenAdminPage().and()
+		.iOpenCardTypesPage();
+		then.theCardTypeGadgetIsListed("Story", Gadgets.PLANNING);
+		
+
+	}
+
 }
