@@ -68,8 +68,7 @@ public class CardsController {
 		if (card.getParent() != null){
 			card.setIteration(card.getParent().load().getIteration());
 		}
-		Project project = card.getProject().load();
-		card.save();
+
 		if (gadgets != null) {
 			card.addGadgets(gadgets);
 		}
