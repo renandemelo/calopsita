@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.jmock.Expectations;
@@ -18,9 +19,11 @@ import br.com.caelum.calopsita.mocks.MockHttpSession;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Iteration;
 import br.com.caelum.calopsita.model.Project;
+import br.com.caelum.calopsita.model.ProjectModification;
 import br.com.caelum.calopsita.model.User;
 import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.IterationRepository;
+import br.com.caelum.calopsita.repository.ProjectModificationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.calopsita.repository.UserRepository;
 import br.com.caelum.vraptor.util.test.MockResult;
@@ -37,6 +40,7 @@ public class IterationTest {
     private ProjectRepository projectRepository;
 	private User currentUser;
 	private UserRepository userRepository;
+	private ProjectModificationRepository projectModificationRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -45,10 +49,11 @@ public class IterationTest {
         cardRepository = mockery.mock(CardRepository.class);
         projectRepository = mockery.mock(ProjectRepository.class);
         userRepository = mockery.mock(UserRepository.class);
+        projectModificationRepository = mockery.mock(ProjectModificationRepository.class);
 
         currentUser = new User(userRepository);
         currentUser.setLogin("me");
-        project = new Project(projectRepository);
+        project = new Project(projectRepository, projectModificationRepository);
 
         SessionUser sessionUser = new SessionUser(new MockHttpSession());
         sessionUser.setUser(currentUser);
@@ -504,6 +509,11 @@ public class IterationTest {
         mockery.checking(new Expectations() {
             {
                 one(iterationRepository).add(iteration);
+                
+                allowing(projectRepository).listModificationsFrom(with(any(Project.class)));
+				will(returnValue(new ArrayList<ProjectModification>()));
+				
+                one(projectModificationRepository).add(with(any(ProjectModification.class)));
             }
         });
     }

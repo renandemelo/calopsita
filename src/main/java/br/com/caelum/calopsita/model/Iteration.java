@@ -64,6 +64,7 @@ public class Iteration implements Identifiable, FromProject {
     	return getRepository().load(this);
     }
     public void save() {
+    	getProject().addModification("Created iteration '" + this.getGoal() + "'");
     	getRepository().add(this);
     }
 
