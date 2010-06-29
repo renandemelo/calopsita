@@ -32,7 +32,7 @@ public class PrioritizationController {
 	public void prioritize(Project project, List<PrioritizableCard> cards) {
 		for (PrioritizableCard card : cards) {
 			PrioritizableCard loaded = repository.load(card);
-			loaded.setPriority(card.getPriority());
+			loaded.changePriority(card.getPriority());
 		}
 		prioritization(project);
 		result.use(nothing());

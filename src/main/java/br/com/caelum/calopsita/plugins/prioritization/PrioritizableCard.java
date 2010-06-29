@@ -12,6 +12,7 @@ import org.hibernate.annotations.Parameter;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Event;
 import br.com.caelum.calopsita.model.Gadget;
+import br.com.caelum.calopsita.model.Project;
 
 @Entity
 public class PrioritizableCard implements Gadget {
@@ -51,7 +52,7 @@ public class PrioritizableCard implements Gadget {
 	}
 
 	public void setPriority(int priority) {
-		//this.card.getProject().addModification("Changed card " + card.getId() + " priority from " + this.priority + " to " + priority);
+		
 		this.priority = priority;
 	}
 
@@ -84,6 +85,13 @@ public class PrioritizableCard implements Gadget {
 	public String getUrlHtml() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void changePriority(int newPriority) {
+		Project project = card.getProject();
+		String modificationDescription = "Changed priorization of card '" + card.getName() + "' from "+ priority + " to " + newPriority;
+		project.addModification(modificationDescription);	
+		setPriority(newPriority);		
 	}
 
 }

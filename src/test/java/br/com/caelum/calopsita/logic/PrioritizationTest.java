@@ -1,9 +1,7 @@
 package br.com.caelum.calopsita.logic;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.jmock.Expectations;
@@ -11,13 +9,13 @@ import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.calopsita.mocks.PrioritizableCardMock;
 import br.com.caelum.calopsita.model.Card;
 import br.com.caelum.calopsita.model.Project;
 import br.com.caelum.calopsita.model.ProjectModification;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizableCard;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizationController;
 import br.com.caelum.calopsita.plugins.prioritization.PrioritizationRepository;
-import br.com.caelum.calopsita.repository.CardRepository;
 import br.com.caelum.calopsita.repository.ProjectModificationRepository;
 import br.com.caelum.calopsita.repository.ProjectRepository;
 import br.com.caelum.vraptor.util.test.MockResult;
@@ -25,6 +23,7 @@ import br.com.caelum.vraptor.util.test.MockResult;
 public class PrioritizationTest {
     private Mockery mockery;
     private PrioritizationController logic;
+    private PrioritizableCardMock prioritizableCard;
 	private PrioritizationRepository repository;
 	private ProjectRepository projectRepository;
 	private Project project;
@@ -39,6 +38,7 @@ public class PrioritizationTest {
 		modificationRepository = mockery.mock(ProjectModificationRepository.class);
 		project = new Project(projectRepository, modificationRepository);
 		logic = new PrioritizationController(new MockResult(), repository);
+		prioritizableCard = new PrioritizableCardMock();
 
 		mockery.checking(new Expectations() {
 			{
@@ -58,23 +58,22 @@ public class PrioritizationTest {
 	public void prioritizingCards() throws Exception {
 		PrioritizableCard card = givenACard(withPriority(5));
 
-		PrioritizableCard loaded = shouldLoadFromRepository(card);
+		shouldLoadFromRepository(card);
 
 		logic.prioritize(project, Arrays.asList(card));
-
-
-		assertThat(loaded.getPriority(), is(5));
+		
+		assertEquals(5,prioritizableCard.getChangedPriority());
 		mockery.assertIsSatisfied();
 
 	}
-	private PrioritizableCard shouldLoadFromRepository(final PrioritizableCard card) {
+
+	private void shouldLoadFromRepository(final PrioritizableCard card) {
 		mockery.checking(new Expectations() {
 			{
 				one(repository).load(card);
-				will(returnValue(card));
+				will(returnValue(prioritizableCard));
 			}
 		});
-		return card;
 	}
 
 	private PrioritizableCard givenACard(int priority) {

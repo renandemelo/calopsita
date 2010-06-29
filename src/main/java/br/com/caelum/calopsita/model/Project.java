@@ -174,9 +174,9 @@ public class Project implements Identifiable {
         this.colaborators = colaborators;
     }
 
-	public void addModification(String string) {		
+	public void addModification(String description) {
 		ProjectModification projectModification = new ProjectModification(this.modificationRepository, this);
-		projectModification.setDescription(string);
+		projectModification.setDescription(description);
 		LocalDateTime now = getNow();
 		projectModification.setDateTime(now);
 		projectModification.save();

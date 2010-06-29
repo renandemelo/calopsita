@@ -35,7 +35,7 @@
 	
 	<a href="<c:url value="/projects/${project.id }/cardTypes/" />"><fmt:message
 		key="add.cardType" /></a><c:choose>
-		<c:when test="${cardType} != null">
+		<c:when test="${cardType != null}">
 			<c:url var="urlActionForm"
 				value="/projects/${project.id }/cardTypes/${cardType.id}" />
 			<c:otherwise>
