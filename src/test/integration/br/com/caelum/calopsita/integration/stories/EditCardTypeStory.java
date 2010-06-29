@@ -19,11 +19,11 @@ public class EditCardTypeStory extends DefaultStory{
 		given.thereIsAnUserNamed("kung").and()
 		.thereIsAProjectNamed("CuKung'er").ownedBy("kung").and()
 		.iAmLoggedInAs("kung");
-	when.iOpenProjectPageOf("CuKung'er").and()
-		.iOpenAdminPage().and()
-		.iAddTheCardType("Story").and()
-		.iOpenCardTypesPage();
-	then.theCardType("Story").doesntAppearsOnCardType("delete Story");
+		when.iOpenProjectPageOf("CuKung'er").and()
+			.iOpenAdminPage().and()
+			.iAddTheCardType("Story").and()
+			.iOpenCardTypesPage();
+		then.theCardType("Story").doesntAppearsOnCardType("delete Story");
 	}
 	
 	
