@@ -435,7 +435,6 @@ public class WhenActions {
 	}
 
 	public void iClickEditCardType(String name) {
-		//Clicar no botao de editar do tipo de cartao 
 		browser.currentPage().click("edit "+name);
 	}
 

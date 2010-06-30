@@ -1,6 +1,6 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
 
-<script type="text/javascript" src="<c:url value="/javascript/project-cards.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/javascript/project-cardtypes.js"/>"></script>
 
 <page:applyDecorator name="admin">
 	<div id="cardTypesList">
@@ -21,8 +21,8 @@
 				title="<fmt:message key="edit"/>"
 				href="<c:url value="/projects/${type.project.id}/cardTypes/${type.id}/"/>"></a>			
 			</div>
-			</li>
-			</div>
+		</li>
+		</div>
 		</c:forEach>
 	</ul>
 	</div>
@@ -31,18 +31,19 @@
 	<hr>
 	<c:if test="${not empty message}">
 	<span class="success"><c:out value="${message }" ></c:out></span><br /><br />
-	</c:if>
+	</c:if> 
 	
 	<a href="<c:url value="/projects/${project.id }/cardTypes/" />"><fmt:message
-		key="add.cardType" /></a><c:choose>
-		<c:when test="${cardType != null}">
+		key="add.cardType" /></a> 
+	<c:choose>
+		<c:when test="${not empty cardType}">
 			<c:url var="urlActionForm"
-				value="/projects/${project.id }/cardTypes/${cardType.id}" />
-			<c:otherwise>
-				<c:url var="urlActionForm"
-					value="/projects/${project.id }/cardTypes/" />
-			</c:otherwise>
+				value="/projects/${project.id }/cardTypes/${cardType.id}/" />
 		</c:when>
+		<c:otherwise>
+			<c:url var="urlActionForm"
+				value="/projects/${project.id }/cardTypes/" />
+		</c:otherwise>
 	</c:choose>
 
 	<form id="formCard" action="<c:out value="${urlActionForm}" />"
