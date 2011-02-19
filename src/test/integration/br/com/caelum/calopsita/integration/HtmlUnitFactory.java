@@ -7,7 +7,7 @@ public class HtmlUnitFactory implements BrowserFactory {
 
     public Browser getBrowser() {
     	String serverHost = System.getProperty("server.host", "localhost");
-    	String port = System.getProperty("server.port", "8080");
+    	String port = System.getProperty("server.port", "9095");
     	return new HtmlUnitBrowser("http://" + serverHost + ":" + port);
     }
 

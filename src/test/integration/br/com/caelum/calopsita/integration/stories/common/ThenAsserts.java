@@ -1,23 +1,19 @@
 package br.com.caelum.calopsita.integration.stories.common;
 
 import static org.hamcrest.Matchers.allOf;
-
-import java.util.Locale;
-import java.util.TimeZone;
-
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.hibernate.Session;
-import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
-import static org.junit.Assert.*;
 
 import br.com.caelum.calopsita.model.Gadgets;
 import br.com.caelum.seleniumdsl.Browser;
@@ -237,7 +233,7 @@ public class ThenAsserts {
 		return this;
 	}
 
-	public ThenAsserts showsToday() {		
+	public ThenAsserts showsTodayMarker() {		
 	    LocalDate today = new LocalDate();
 	    assertThat(div("today_year"), containsText(today.toString("yyyy")));
 	    assertThat(div("today_day"), containsText(today.toString("dd")));

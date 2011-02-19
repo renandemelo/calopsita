@@ -25,8 +25,8 @@ public class IterationTimelineStory extends DefaultStory {
 		when.iOpenProjectPageOf("Hoops").and()
 		    .iOpenThePageOfIterationWithGoal("Allow attributes on fields");
 		then.theIterationTimeline()
-				.showsToday()
-				.showsItBegan(oneWeekAgo())
+				.showsTodayMarker().and()
+				.showsItBegan(oneWeekAgo()).and()
 				.showsItEnds(nextWeek());
 	}
 
@@ -41,8 +41,8 @@ public class IterationTimelineStory extends DefaultStory {
 			.iOpenIterationsPage().and()
 		    .iOpenThePageOfIterationWithGoal("Allow attributes on fields");
 		then.theIterationTimeline()
-				.showsToday()
-				.showsItBegan(oneWeekAgo())
+				.showsTodayMarker().and()
+				.showsItBegan(oneWeekAgo()).and()
 				.showsItEnds(inNoSpecificDate());
 	}
 
@@ -57,8 +57,8 @@ public class IterationTimelineStory extends DefaultStory {
 			.iOpenIterationsPage().and()
 		    .iOpenThePageOfIterationWithGoal("Allow attributes on fields");
 		then.theIterationTimeline()
-				.showsToday()
-				.showsItBegan(inNoSpecificDate())
+				.showsTodayMarker().and()
+				.showsItBegan(inNoSpecificDate()).and()
 				.showsItEnds(nextWeek());
 	}
 
@@ -72,8 +72,8 @@ public class IterationTimelineStory extends DefaultStory {
 			.iOpenIterationsPage().and()
 		    .iOpenThePageOfIterationWithGoal("Allow attributes on fields");
 		then.theIterationTimeline()
-				.showsToday()
-				.showsItBegan(inNoSpecificDate())
+				.showsTodayMarker().and()
+				.showsItBegan(inNoSpecificDate()).and()
 				.showsItEnds(inNoSpecificDate());
 	}
 
@@ -88,7 +88,7 @@ public class IterationTimelineStory extends DefaultStory {
 			.iOpenIterationsPage().and()
 		    .iOpenThePageOfIterationWithGoal("Allow attributes on fields");
 		then.theIterationTimeline()
-				.showsToday()
+				.showsTodayMarker().and()
 				.showsItBegan(today());
 	}
 
@@ -103,7 +103,7 @@ public class IterationTimelineStory extends DefaultStory {
 			.iOpenIterationsPage().and()
 		    .iOpenThePageOfIterationWithGoal("Allow attributes on fields");
 		then.theIterationTimeline()
-				.showsToday()
+				.showsTodayMarker().and()
 				.showsItEnds(today());
 	}
 }
