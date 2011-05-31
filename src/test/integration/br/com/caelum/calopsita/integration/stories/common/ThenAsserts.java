@@ -303,8 +303,8 @@ public class ThenAsserts {
 		return this;
 	}
 
-	public void hasCreationDate(LocalDate today) {
-		assertThat(div(divName), containsText("" + today));
+	public void hasCreationDate(LocalDate date) {
+		assertThat(div(divName), containsText("Creation Date: " + date));
 	}
 
 	public ThenAsserts isOwnedBy(String owner) {
@@ -372,11 +372,6 @@ public class ThenAsserts {
 		return this;
 	}
 
-	private void waitForAjax() {
-		browser.currentPage().waitUntil("$.active === 0", 2000);
-		browser.currentPage().waitUntil("$('.deleting').length == 0", 2000);
-	}
-	
 	public void appearsConfirmationPopup(String operation) {
 		//assertThat(div("main"), containsText("blah"));
 		//browser.currentPage().waitUntil(
@@ -393,6 +388,7 @@ public class ThenAsserts {
 		
 	}
 
-	
-	
+	public void hasFinishDate(LocalDate date) {
+		assertThat(div(divName), containsText("Done in " + date));
+	}
 }

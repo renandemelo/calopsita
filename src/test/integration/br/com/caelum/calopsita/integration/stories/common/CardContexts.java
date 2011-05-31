@@ -116,7 +116,7 @@ public class CardContexts<T extends ProjectContexts<T>> {
 		return this;
  	}
 
-	public CardContexts<?> thatHasALifeCicle(LocalDate when) {
+	public CardContexts<?> thatHasALifeCicleStarting(LocalDate when) {
 		LifeCycledCard lifeCicledCard = new LifeCycledCard();
 		lifeCicledCard.setCard(card);
 		lifeCicledCard.setCreationDate(when);

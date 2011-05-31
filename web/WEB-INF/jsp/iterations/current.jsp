@@ -33,7 +33,7 @@
 	</div>
 </c:if>
 <c:if test="${empty iteration}">
-<p>There is no current iteration</p>
+<p id="no_iteration">There is no current iteration</p>
 </c:if>
 
 </div>

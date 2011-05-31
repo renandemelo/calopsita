@@ -228,7 +228,7 @@ public class WhenActions {
 				5000);
 	}
 
-	public WhenActions iOpenThePageOfCardNamed(String cardName) {
+	public WhenActions iOpenThePageOfCardNamed(String cardNrame) {
 		iClickEditCardType(cardName);
 		return this;
 	}
@@ -463,4 +463,8 @@ public class WhenActions {
 		return this;
 	}
 
+	public void iMarkAsDoneTheCard(String cardName) {
+		browser.currentPage().dragAndDrop(cardName, "done_cards");
+		waitForAjax();
+	}
 }
