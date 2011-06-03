@@ -29,7 +29,7 @@ public class AuthorizationStory extends DefaultStory {
 		     .thereIsAProjectNamed("C4lopsita").ownedBy("caue").withColaborator("ceci").and()
 		     .iAmLoggedInAs("ceci");
 		when.iDirectlyOpenProjectPageOf("C4lopsita");
-		then.project("C4lopsita").appearsOnScreen();
+		then.project("C4lopsita").appearsOnProjectsList();
 	}
 
 	@Test

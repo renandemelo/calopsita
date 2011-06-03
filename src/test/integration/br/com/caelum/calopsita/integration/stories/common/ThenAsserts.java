@@ -87,7 +87,7 @@ public class ThenAsserts {
 		assertThat(div("index"), containsText("not allowed to see this project"));
 	}
 
-	public ThenAsserts appearsOnScreen() {
+	public ThenAsserts appearsOnProjectsList() {
 		assertThat(div("projects"), containsText(name));
 		return this;
 	}
