@@ -1,5 +1,6 @@
 package br.com.caelum.calopsita.integration.stories;
 
+import org.hibernate.type.YesNoType;
 import org.junit.Test;
 
 import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
@@ -28,15 +29,14 @@ public class CardLifeCycleStory extends DefaultStory {
 	public void markingACardAsDoneRecordsFinishDate() throws Exception {
 		given.thereIsAnUserNamed("Erich").and()
 			.thereIsAProjectNamed("Sysgraph").ownedBy("Erich")
-				.withACardNamed("finalize the main refactor").
-					thatHasALifeCicleStarting(oneWeekAgo()).and()
 				.withAnIterationWhichGoalIs("refactor it all").startingYesterday()
 					.withACardNamed("finalize the main refactor")
+						.planningCard().thatHasALifeCicleStarting(oneWeekAgo())
 					.also()
 			.iAmLoggedInAs("Erich");
 		when.iOpenProjectPageOf("Sysgraph").and()
 			.iOpenThePageOfCurrentIteration().and()
-			.iMarkAsDoneTheCard("finalize the main refactor");
+			.iFlagTheCard("finalize the main refactor").asDone();
 		then.theCard("finalize the main refactor").hasFinishDate(today());
 		
 	}

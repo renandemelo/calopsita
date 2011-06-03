@@ -464,7 +464,7 @@ public class WhenActions {
 	}
 
 	public void iMarkAsDoneTheCard(String cardName) {
-		browser.currentPage().dragAndDrop(cardName, "done_cards");
+		browser.currentPage().dragAndDrop(cardName, "done_list");
 		waitForAjax();
 	}
 }

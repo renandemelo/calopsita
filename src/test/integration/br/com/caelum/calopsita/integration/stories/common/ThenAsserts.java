@@ -389,6 +389,6 @@ public class ThenAsserts {
 	}
 
 	public void hasFinishDate(LocalDate date) {
-		assertThat(div(divName), containsText("Done in " + date));
+		assertThat(div("done_cards"), containsText("Finish Date: " + date));
 	}
 }
