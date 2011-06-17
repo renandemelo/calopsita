@@ -228,7 +228,7 @@ public class WhenActions {
 				5000);
 	}
 
-	public WhenActions iOpenThePageOfCardNamed(String cardNrame) {
+	public WhenActions iOpenThePageOfCardNamed(String cardName) {
 		iClickEditCardType(cardName);
 		return this;
 	}

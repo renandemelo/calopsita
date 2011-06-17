@@ -63,7 +63,7 @@ public class CardsController {
         }});
 		validator.onErrorUse(logic()).forwardTo(CardsController.class).form(card.getProject());
 		
-		card.setCreator(currentUser);		
+		card.setCreator(currentUser);
 		card.save();		
 		if (card.getParent() != null){
 			card.setIteration(card.getParent().load().getIteration());
