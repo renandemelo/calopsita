@@ -4,7 +4,6 @@ import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.hibernate.Session;
 
@@ -14,7 +13,6 @@ import br.com.caelum.calopsita.persistence.dao.ProjectDao;
 import br.com.caelum.calopsita.persistence.dao.ProjectModificationDao;
 import br.com.caelum.calopsita.plugins.PluginResultTransformer;
 import br.com.caelum.calopsita.plugins.Transformer;
-import br.com.caelum.calopsita.plugins.prioritization.OrderByPriorityTransformer;
 import br.com.caelum.seleniumdsl.Browser;
 import br.com.caelum.seleniumdsl.ContentTag;
 import br.com.caelum.seleniumdsl.Form;
@@ -74,7 +72,6 @@ public class GivenContexts {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public ProjectContexts<?> thereIsAProjectNamed(String name) {
 		Project project = new Project(
 				new ProjectDao(session, new PluginResultTransformer(session, new ArrayList<Transformer>())),

@@ -12,7 +12,7 @@ import br.com.caelum.calopsita.integration.stories.common.DefaultStory;
 public class EditCardStory extends DefaultStory {
 
 	@Test
-	public void WhenICancelAnEditTheBrowserGoesBack() throws Exception {
+	public void whenICancelAnEditTheBrowserGoesBack() throws Exception {
 		given.thereIsAnUserNamed("Juju").and()
 		     .thereIsAProjectNamed("Wars")
 		         .ownedBy("Juju")
@@ -26,7 +26,7 @@ public class EditCardStory extends DefaultStory {
 	}
 	
 	@Test
-	public void WhenIClickOnEditCardMenuTheBrowserGoesToEditCardPage() throws Exception {
+	public void whenIClickOnEditCardMenuTheBrowserGoesToEditCardPage() throws Exception {
 		given.thereIsAnUserNamed("Juju").and()
 		     .thereIsAProjectNamed("Wars")
 		         .ownedBy("Juju")

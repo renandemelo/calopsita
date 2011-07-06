@@ -34,7 +34,8 @@ public class ThenAsserts {
     private ContentTag div(String name) {
     	return this.browser.currentPage().div(name);
     }
-    public void iMustBeLoggedInAs(String login) {
+    @SuppressWarnings("unchecked")
+	public void iMustBeLoggedInAs(String login) {
         ContentTag div = div("user");
         assertThat(div, allOf(containsText(login), containsText("Logout")));
     }
@@ -117,7 +118,7 @@ public class ThenAsserts {
 	}
 
 	public ThenAsserts currentIterationCardList() {
-		this.divName = "cards";//"iteration_cards";
+		this.divName = "cards";
 		return this;
 	}
 	
@@ -209,6 +210,7 @@ public class ThenAsserts {
         assertThat(div("iteration_text"), containsText("Goal: " + goal));
     }
 
+    //FIXME: why do we need to access the database here?
 	public void isPrioritizable() {
 		session.flush();
 		Long count = (Long) session.createQuery("select count(*) from PrioritizableCard c where c.card.name = :name")
@@ -218,14 +220,13 @@ public class ThenAsserts {
 
 	}
 
+    //FIXME: why do we need to access the database here?
 	public ThenAsserts isNotPrioritizable() {
 		session.flush();
 		Long count = (Long) session.createQuery("select count(*) from PrioritizableCard c where c.card.name = :name")
 			.setParameter("name", name).uniqueResult();
-
 		assertThat(count, is(0l));
 		return this;
-
 	}
 
 	public ThenAsserts theIterationTimeline() {
@@ -271,6 +272,7 @@ public class ThenAsserts {
 		assertThat(div("main"), not(containsText(this.name)));
 	}
 
+    //FIXME: why do we need to access the database here?
 	public void isPlannable() {
 		session.flush();
 		Long count = (Long) session.createQuery("select count(*) from PlanningCard c where c.card.name = :name")
@@ -312,6 +314,7 @@ public class ThenAsserts {
 		return this;		
 	}
 
+    //FIXME: plain simple... WTF! Are we testing that a message box does not contain an specific message?
 	public ThenAsserts iAmNotEditingCard() {
 		assertThat(div("main"), not(containsText("When you choose a card type, related gadgets will be selected.")));
 		return this;
